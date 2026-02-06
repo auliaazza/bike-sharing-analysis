@@ -19,7 +19,6 @@ df = load_data()
 
 # OVERVIEW
 st.subheader("📌 Overview Penggunaan Bike Sharing")
-st.image("https://pin.it/tnynaulNQX")
 
 col1, col2, col3 = st.columns(3)
 
@@ -67,7 +66,7 @@ with col2:
     """)
 
 # SIDEBAR
-st.sidebar.image("logo_bike_sharing.png" , width= 180)
+st.sidebar.image("dashboard/logo_bike_sharing.png" , width= 180)
 st.sidebar.subheader("Bike Sharing Analysis Dashboard")
 st.sidebar.write("""
     Dashboard analisis data untuk memahami pola penggunaan sepeda melalui visualisasi berbasis waktu.
