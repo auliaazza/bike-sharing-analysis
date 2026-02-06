@@ -38,7 +38,7 @@ Daftar library Python yang diperlukan untuk menjalankan proyek ini.
 1. Clone repository ini ke komputer lokal Anda menggunakan perintah berikut:
 
    ```shell
-   git clone https://github.com/auliaazza/bike-sharing-analysis
+   git clone https://github.com/auliaazza/bike-sharing-analysis.git
    ```
 
 2. Pastikan Anda memiliki lingkungan Python yang sesuai dan pustaka-pustaka yang diperlukan. Anda dapat menginstal pustaka-pustaka tersebut dengan menjalankan perintah berikut:
