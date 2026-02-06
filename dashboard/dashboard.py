@@ -71,6 +71,28 @@ st.sidebar.subheader("Bike Sharing Analysis Dashboard")
 st.sidebar.write("""
     Dashboard analisis data untuk memahami pola penggunaan sepeda melalui visualisasi berbasis waktu.
     """)
+st.sidebar.markdown("---")
+
+#Filter Interaktif
+st.sidebar.subheader("🎛️ Filter Data")
+
+# FILTER CUACA
+weather_options = ["Semua"] + sorted(df["weather_situation_hour"].unique().tolist())
+selected_weather = st.sidebar.selectbox(
+    "Pilih Kondisi Cuaca",
+    weather_options
+)
+
+# FILTER TANGGAL
+min_date = df["dteday"].min()
+max_date = df["dteday"].max()
+
+date_range = st.sidebar.date_input(
+    "Pilih Rentang Tanggal",
+    value=(min_date, max_date),
+    min_value=min_date,
+    max_value=max_date
+)
 
 menu = st.sidebar.radio(
     "Pilih Pertanyaan Analisis",
@@ -82,6 +104,23 @@ menu = st.sidebar.radio(
         "5. Periode Operasional Optimal"
     ]
 )
+
+#Dashboard Interaktif Filtered Dataframe
+filtered_df = df.copy()
+
+# Filter cuaca
+if selected_weather != "Semua":
+    filtered_df = filtered_df[
+        filtered_df["weather_situation_hour"] == selected_weather
+    ]
+
+# Filter tanggal
+start_date, end_date = pd.to_datetime(date_range[0]), pd.to_datetime(date_range[1])
+
+filtered_df = filtered_df[
+    (filtered_df["dteday"] >= start_date) &
+    (filtered_df["dteday"] <= end_date)
+]
 
 # 1. POLA WAKTU & JENIS HARI
 if menu == "1. Pola Waktu & Jenis Hari":
