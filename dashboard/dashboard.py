@@ -11,7 +11,7 @@ st.title("Bike Sharing Dashboard :sparkle:")
 # LOAD DATA
 @st.cache_data
 def load_data():
-    df = pd.read_csv("main_data.csv")
+    df = pd.read_csv("dashboard/main_data.csv")
     df['dteday'] = pd.to_datetime(df['dteday'])
     return df
 
@@ -66,7 +66,7 @@ with col2:
     """)
 
 # SIDEBAR
-st.sidebar.image("logo_bike_sharing.png" , width= 180)
+st.sidebar.image("dashboard/logo_bike_sharing.png" , width= 120)
 st.sidebar.subheader("Bike Sharing Analysis Dashboard")
 st.sidebar.write("""
     Dashboard analisis data untuk memahami pola penggunaan sepeda melalui visualisasi berbasis waktu.
@@ -224,7 +224,7 @@ if menu == "1. Pola Waktu & Jenis Hari":
    
 
     st.write("""
-       Penyewaan sepeda berbeda jelas antara hari kerja dan libur.
+       Berdasarkan seluruh data penyewaan sepeda berbeda jelas antara hari kerja dan libur.
        Hari kerja memiliki dua puncak pada pagi (±08.00) dan sore (±17.00)
        yang mencerminkan aktivitas komuter, sedangkan hari libur lebih landai
        dengan puncak siang (12.00–15.00) bersifat rekreatif. Penyewaan relatif
@@ -298,7 +298,7 @@ elif menu == "3. Peak Hours":
         st.pyplot(fig)
 
     st.write("""
-    Penyewaan sepeda mencapai puncak pada pukul 17.00–18.00 dan puncak tambahan sekitar pukul 08.00, 
+    Berdasarkan seluruh data penyewaan sepeda mencapai puncak pada pukul 17.00–18.00 dan puncak tambahan sekitar pukul 08.00, 
     menjadikannya jam penggunaan paling krusial. Pada hari kerja, pola membentuk dua lonjakan jelas 
     saat jam berangkat dan pulang kerja yang didominasi komuter, sedangkan pada hari libur atau akhir pekan 
     pola lebih landai dengan peningkatan bertahap mulai pukul 10.00 dan puncak siang–sore (12.00–15.00) 
