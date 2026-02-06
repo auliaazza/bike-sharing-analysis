@@ -2,12 +2,6 @@
 ## Belajar Fundamental Analisis Data
 
 ---
-### Preview
-
-Bike Sharing Dashboard – Streamlit
-(tambahkan gambar preview dashboard kamu di sini)
-
----
 
 ### Tentang Proyek
 
@@ -41,26 +35,27 @@ Daftar library Python yang diperlukan untuk menjalankan proyek ini.
 
 ### Instalasi
 
-Clone repository ini ke komputer lokal:
+1. Clone repository ini ke komputer lokal Anda menggunakan perintah berikut:
 
-git clone https://github.com/username/nama-repository.git
+   ```shell
+   git clone https://github.com/auliaazza/bike-sharing-analysis
+   ```
 
+2. Pastikan Anda memiliki lingkungan Python yang sesuai dan pustaka-pustaka yang diperlukan. Anda dapat menginstal pustaka-pustaka tersebut dengan menjalankan perintah berikut:
 
-Install library yang dibutuhkan:
+    ```shell
+    pip install streamlit
+    pip install -r requirements.txt
+    ```
 
-pip install -r requirements.txt
+## Penggunaan
+1. Masuk ke direktori proyek (Local):
 
-
-Pastikan Python sudah terpasang di perangkat Anda.
-
-Cara Menjalankan
-Menjalankan secara lokal:
-cd dashboard
-streamlit run dashboard.py
-
-Versi online:
-
-(tambahkan link Streamlit Cloud jika sudah dideploy)
+    ```shell
+    cd bike-sharing-analysis/dashboard/
+    streamlit run dashboard.py
+    ```
+    Atau bisa dengan kunjungi website ini [Project Data Analytics](https://bike-sharing-analysis-aulia-azzahra.streamlit.app/)
 
 ---
 
