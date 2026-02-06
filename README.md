@@ -48,7 +48,7 @@ Daftar library Python yang diperlukan untuk menjalankan proyek ini.
     pip install -r requirements.txt
     ```
 
-## Penggunaan
+### Penggunaan
 1. Masuk ke direktori proyek (Local):
 
     ```shell
