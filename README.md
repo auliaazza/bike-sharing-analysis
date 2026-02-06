@@ -55,7 +55,7 @@ Daftar library Python yang diperlukan untuk menjalankan proyek ini.
     cd bike-sharing-analysis/dashboard/
     streamlit run dashboard.py
     ```
-    Atau bisa dengan kunjungi website ini [Project Data Analytics](https://bike-sharing-analysis-aulia-azzahra.streamlit.app/)
+    Atau bisa dengan kunjungi website ini [Project Data Analytics](https://bike-sharing-analysis-auliaazza.streamlit.app/)
 
 ---
 
