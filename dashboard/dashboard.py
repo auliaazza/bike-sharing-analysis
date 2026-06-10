@@ -22,7 +22,7 @@ df = load_data()
 st.sidebar.image("dashboard/logo_bike_sharing.png" , width= 250)
 
 #Filter Interaktif
-st.sidebar.tittle("Filter Controls")
+st.sidebar.header("Filter Controls")
 
 # 1. Filter Custome Date Range
 st.sidebar.subheader("Filter by Date Range")
