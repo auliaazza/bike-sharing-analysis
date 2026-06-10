@@ -20,7 +20,6 @@ df = load_data()
 
 # SIDEBAR
 st.sidebar.image("dashboard/logo_bike_sharing.png" , width= 200)
-st.sidebar.header("Bike Sharing")
 
 #Filter Interaktif
 st.sidebar.subheader("Filter Controls")
