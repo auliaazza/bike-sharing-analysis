@@ -61,12 +61,6 @@ st.markdown("""
 st.sidebar.title("Filter")
 
 # --- KATEGORI 1: Filter by Date Range (Preset Cepat) ---
-st.sidebar.markdown('<p class="filter-label">Filter by Date Range</p>', unsafe_allow_html=True)
-date_preset = st.sidebar.pills(
-    label="Preset Tanggal", 
-    options=["Last 30 Days", "Last 6 Months"],
-    label_visibility="collapsed"
-)
 
 # --- KATEGORI 2: Custome Date Range ---
 st.sidebar.markdown('<p class="filter-label">Custome Date Range</p>', unsafe_allow_html=True)
@@ -115,12 +109,6 @@ else:
     start_date, end_date = min_date, max_date
 
 # B. Logika tombol Preset Cepat (Jika diklik, menimpa rentang tanggal di atas)
-if date_preset == "Last 30 Days":
-    start_date = max_date - datetime.timedelta(days=30)
-    end_date = max_date
-elif date_preset == "Last 6 Months":
-    start_date = max_date - datetime.timedelta(days=180)
-    end_date = max_date
 
 # C. Eksekusi Pemotongan Data (Filtering DataFrame)
 # Filter Berdasarkan Tanggal
