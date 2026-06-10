@@ -53,11 +53,21 @@ selected_weather = st.sidebar.selectbox(
 filtered_df = df.copy()
 
 # APPLY DATE FILTER
-start_date, end_date = pd.to_datetime(date_range[0]), pd.to_datetime(date_range[1])
-filtered_df = filtered_df[
-    (filtered_df["dteday"] >= start_date) &
-    (filtered_df["dteday"] <= end_date)
-]
+if isinstance(date_range, tuple) or isinstance(date_range, list):
+    if len(date_range) == 2:
+        # Jika user sudah selesai memilih Start Date DAN End Date
+        start_date, end_date = pd.to_datetime(date_range[0]), pd.to_datetime(date_range[1])
+    else:
+        # Jika user baru ngeklik Start Date saja (End Date belum diklik)
+        start_date = pd.to_datetime(date_range[0])
+        end_date = df['dteday'].max() # Set default ke tanggal paling akhir di dataset kamu
+else:
+    # Antisipasi jika objek kosong
+    start_date = df['dteday'].min()
+    end_date = df['dteday'].max()
+
+# Setelah aman, baru jalankan pemotongan dataframe-nya
+filtered_df = df[(df['dteday'] >= start_date) & (df['dteday'] <= end_date)]
 
 # APPLY SEASON FILTER
 if selected_season:
