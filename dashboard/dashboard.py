@@ -19,26 +19,6 @@ def load_data():
 df = load_data()
 
 # ==============================================================================
-# 1. KONFIGURASI HALAMAN & CUSTOM CSS (WARNA PALET & STYLE KAPSUL)
-# ==============================================================================
-st.set_page_config(page_title="Bike Sharing Dashboard", layout="wide")
-
-import streamlit as st
-
-st.html(
-    """
-<style>
-[data-testid="stSidebarContent"] {
-    color: white;
-    background-color: red;
-}
-</style>
-"""
-)
-
-# Call the functions to apply the customizations
-add_custom_css()
-# ==============================================================================
 # 3. AREA SIDEBAR FILTER (TAMPILAN UI KAPSUL BALUT)
 # ==============================================================================
 st.sidebar.title("Filter")
