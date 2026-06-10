@@ -40,7 +40,7 @@ list_season = df['season_day'].unique()
 selected_season_day = st.sidebar.pills(
     "Select Season",
     opttions=list_season,
-    default=list_season
+    default=list(list_season)
 )
 
 # FILTER BY USER TYPE
