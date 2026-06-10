@@ -18,16 +18,15 @@ def load_data():
 
 df = load_data()
 
-# ==============================================================================
-# 3. AREA SIDEBAR FILTER (TAMPILAN UI KAPSUL BALUT)
-# ==============================================================================
-st.sidebar.title("Filter")
+# SIDEBAR
+st.sidebar.image("dashboard/logo_bike_sharing.png" , width= 120)
+st.sidebar.subheader("Bike Sharing Analysis Dashboard")
+st.sidebar.markdown("---")
 
-# --- KATEGORI 1: Filter by Date Range (Preset Cepat) ---
+#Filter Interaktif
+st.sidebar.subheader("Filter Controls")
 
-# --- KATEGORI 2: Custome Date Range ---
-st.sidebar.markdown('<p class="filter-label">Custome Date Range</p>', unsafe_allow_html=True)
-
+# 1. Filter Custome Date Range
 min_date = df['dteday'].min().date()
 max_date = df['dteday'].max().date()
 
@@ -40,8 +39,7 @@ date_range = st.sidebar.date_input(
     label_visibility="collapsed"
 )
 
-# --- KATEGORI 3: Filter by Season ---
-st.sidebar.markdown('<p class="filter-label">Filter by Season</p>', unsafe_allow_html=True)
+# 2. Filter by Season
 list_season = sorted(df['season_day'].unique())
 selected_season_day = st.sidebar.pills(
     label="Pilih Season",
@@ -50,8 +48,7 @@ selected_season_day = st.sidebar.pills(
     label_visibility="collapsed"
 )
 
-# --- KATEGORI 4: Filter by Weather ---
-st.sidebar.markdown('<p class="filter-label">Filter by Weather</p>', unsafe_allow_html=True)
+# 3. Filter by Weather
 weather_options = ["All"] + sorted(df["weather_situation_hour"].unique().tolist())
 selected_weather = st.sidebar.pills(
     label="Select Weather",
@@ -60,21 +57,14 @@ selected_weather = st.sidebar.pills(
     label_visibility="collapsed"
 )
 
+# FILTER DATA (DATA PIPELINE)
 
-# ==============================================================================
-# 4. LOGIKA PROSES FILTER DATA (DATA PIPELINE)
-# ==============================================================================
-
-# A. Ambil nilai tanggal dari widget date_input dengan PENGAMAN TUPLE (Anti-Error)
+# Filter Berdasarkan Tanggal Dengan Tuple (Anti-Error)
 if isinstance(date_range, tuple) and len(date_range) == 2:
     start_date, end_date = date_range[0], date_range[1]
 else:
     start_date, end_date = min_date, max_date
 
-# B. Logika tombol Preset Cepat (Jika diklik, menimpa rentang tanggal di atas)
-
-# C. Eksekusi Pemotongan Data (Filtering DataFrame)
-# Filter Berdasarkan Tanggal
 filtered_df = df[(df['dteday'].dt.date >= start_date) & (df['dteday'].dt.date <= end_date)]
 
 # Filter Berdasarkan Season
