@@ -19,7 +19,7 @@ def load_data():
 df = load_data()
 
 # SIDEBAR
-st.sidebar.image("dashboard/logo_bike_sharing.png" , width= 200)
+st.sidebar.image("dashboard/logo_bike_sharing.png" , width= 250)
 
 #Filter Interaktif
 st.sidebar.subheader("Filter Controls")
