@@ -37,7 +37,7 @@ start_date, end_date = st.sidebar.date_input(
 
 # FILTER BY SEASON
 list_season = df['season_day'].unique()
-selected_season_day = st.sidebar.multiselect(
+selected_season_day = st.sidebar.pills(
     "Select Season",
     opttions=list_season,
     default=list_season
