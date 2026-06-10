@@ -54,11 +54,11 @@ filtered_df = df.copy()
 
 # APPLY DATE FILTER
 start_date, end_date = pd.to_datetime(date_range[0]), pd.to_datetime(date_range[1])
-
 filtered_df = filtered_df[
     (filtered_df["dteday"] >= start_date) &
     (filtered_df["dteday"] <= end_date)
 ]
+
 # APPLY SEASON FILTER
 if selected_season:
     filtered_df = filtered_df[filtered_df["season"].isin(selected_seasson)]
