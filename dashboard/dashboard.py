@@ -22,10 +22,10 @@ df = load_data()
 st.sidebar.image("dashboard/logo_bike_sharing.png" , width= 250)
 
 #Filter Interaktif
-st.sidebar.subheader("Filter Controls")
+st.sidebar.tittle("Filter Controls")
 
 # 1. Filter Custome Date Range
-st.sidebar.markdown('<p class="filter-label">Filter by Date Range</p>')
+st.sidebar.subheader("Filter by Date Range")
 min_date = df['dteday'].min().date()
 max_date = df['dteday'].max().date()
 
@@ -39,6 +39,7 @@ date_range = st.sidebar.date_input(
 )
 
 # 2. Filter by Season
+st.sidebar.subheader("Filter by Season")
 list_season = sorted(df['season_day'].unique())
 selected_season_day = st.sidebar.pills(
     label="Pilih Season",
@@ -48,6 +49,7 @@ selected_season_day = st.sidebar.pills(
 )
 
 # 3. Filter by Weather
+st.sidebar.subheader("Filter by Weather")
 weather_options = ["All"] + sorted(df["weather_situation_hour"].unique().tolist())
 selected_weather = st.sidebar.pills(
     label="Select Weather",
