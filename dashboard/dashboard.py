@@ -25,6 +25,7 @@ st.sidebar.image("dashboard/logo_bike_sharing.png" , width= 250)
 st.sidebar.subheader("Filter Controls")
 
 # 1. Filter Custome Date Range
+st.sidebar.markdown('<p class="filter-label">Filter by Date Range</p>')
 min_date = df['dteday'].min().date()
 max_date = df['dteday'].max().date()
 
