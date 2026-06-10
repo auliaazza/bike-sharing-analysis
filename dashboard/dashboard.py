@@ -23,22 +23,18 @@ df = load_data()
 # ==============================================================================
 st.set_page_config(page_title="Bike Sharing Dashboard", layout="wide")
 
-def add_custom_css():
-    st.markdown(
-        """
-        <style>
-        /* Change the background color of the sidebar */
-        .sidebar .sidebar-content {
-            background-color: #31333F;
-        }
-        /* Change the text color of the sidebar */
-        .sidebar .sidebar-content {
-            color: blue;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
+import streamlit as st
+
+st.html(
+    """
+<style>
+[data-testid="stSidebarContent"] {
+    color: white;
+    background-color: red;
+}
+</style>
+"""
+)
 
 # Call the functions to apply the customizations
 add_custom_css()
