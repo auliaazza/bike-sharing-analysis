@@ -77,7 +77,7 @@ if selected_weather != "All":
     filtered_df = filtered_df[filtered_df["weather_situation_hour"] == selected_weather]
 
 # MAIN DATA
-st.write(f"Rentang Data Aktif: **{start_date}** sampai **{end_date}**")
+st.write(f"Active Data Range: **{start_date}** to **{end_date}**")
 
 # Membuat 5 tab sesuai request kamu
 tab1, tab2, tab3, tab4, tab5 = st.tabs([
