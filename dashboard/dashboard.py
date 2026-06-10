@@ -47,6 +47,7 @@ weather_options = ["All"] + sorted(df["weather_situation_hour"].unique().tolist(
 selected_weather = st.sidebar.selectbox(
     "Select Weather",
     weather_options
+)
 
 # FILTERED DATAFRAME
 filtered_df = df.copy()
