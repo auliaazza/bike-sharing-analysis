@@ -23,38 +23,25 @@ df = load_data()
 # ==============================================================================
 st.set_page_config(page_title="Bike Sharing Dashboard", layout="wide")
 
-st.markdown("""
-    <style>
-    /* Mengubah warna tombol kapsul (st.pills) yang sedang aktif menjadi Biru #87AECE */
-    div[data-testid="stBaseButton-pillsActiveElements"] {
-        background-color: #87AECE !important;
-        color: white !important;
-        border-color: #87AECE !important;
-    }
-    
-    /* Mengubah warna tombol kapsul yang tidak aktif menjadi Abu-abu #EDEDED */
-    div[data-testid="stBaseButton-pillsNeutralElements"] {
-        background-color: #EDEDED !important;
-        color: #5A6A85 !important;
-        border-color: #EDEDED !important;
-    }
+def add_custom_css():
+    st.markdown(
+        """
+        <style>
+        /* Change the background color of the sidebar */
+        .sidebar .sidebar-content {
+            background-color: #31333F;
+        }
+        /* Change the text color of the sidebar */
+        .sidebar .sidebar-content {
+            color: blue;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
-    /* Mengubah warna border input tanggal saat aktif */
-    div[data-testid="stDateInput"] input:focus {
-        border-color: #87AECE !important;
-        box-shadow: 0 0 0 0.2rem rgba(135, 174, 206, 0.25) !important;
-    }
-
-    /* Mengubah warna teks judul kategori filter di sidebar (Biru Gelap #1D2A62) */
-    .filter-label {
-        font-weight: 600;
-        color: #1D2A62;
-        font-size: 14px;
-        margin-top: 18px;
-        margin-bottom: 4px;
-    }
-    </style>
-""", unsafe_allow_html=True)
+# Call the functions to apply the customizations
+add_custom_css()
 # ==============================================================================
 # 3. AREA SIDEBAR FILTER (TAMPILAN UI KAPSUL BALUT)
 # ==============================================================================
