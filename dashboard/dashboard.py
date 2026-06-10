@@ -42,12 +42,11 @@ selected_season_day = st.sidebar.pills(
     options=list_season
 )
 
-# FILTER BY USER TYPE
-list_user_type = df["user_type"].unique()
-selected_user_type = st.sidebar.selectbox(
-    "Select Usser Type",
-    options=["All"] + list_user_type
-)
+# FILTER BY WEATHER
+weather_options = ["All"] + sorted(df["weather_situation_hour"].unique().tolist())
+selected_weather = st.sidebar.selectbox(
+    "Select Weather",
+    weather_options
 
 # FILTERED DATAFRAME
 filtered_df = df.copy()
@@ -63,6 +62,8 @@ filtered_df = filtered_df[
 if selected_season:
     filtered_df = filtered_df[filtered_df["season"].isin(selected_seasson)]
 
-# APPLY USER TYPE FILTER
-if selected_user_type != "All":
-    filtered_df = filtered_df[filtered_df["user_type"] == selected_user_type]
+# APPLY WEATHER TYPE FILTER
+if selected_weather != "All":
+    filtered_df = filtered_df[
+        filtered_df["weather_situation_hour"] == selected_weather
+    ]
