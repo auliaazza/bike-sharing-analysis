@@ -168,20 +168,11 @@ with tab1:
     #TEMPERATURE IMPACT
     with col1:
         st.subheader("Impact of Temperature on Daily Rentals")
-        fig, ax = plt.subplots(figsize=(10, 5))
-    
-        sns.scatterplot(
-                data=df,
-                x='temp_norm_day',
-                y='cnt_day',
-                hue='demand_level',
-                alpha=0.7,
-                ax=ax
-            )
-        ax.set_title("Temperature vs Total Daily Rentals", fontsize=14, pad=15)
-        ax.set_xlabel("Normalized Temperature", fontsize=11)
-        ax.set_ylabel("Total Daily Rentals", fontsize=11)
-        ax.grid(True, linestyle='--', alpha=0.5)
-        ax.legend(title="Demand Level", loc="upper left")
-        
-        st.pyplot(fig)
+        st.scatter_chart(
+            data=df,
+            x='temp_norm_day',
+            y='cnt_day',
+            color='demand_level',
+            x_label='Normalized Temperature',
+            y_label='Total Daily Rentals'
+        )
