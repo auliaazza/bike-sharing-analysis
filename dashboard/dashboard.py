@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import plotly.express as px
 
 # SET CONFIG
 st.set_page_config(page_title="Bike Sharing Analysis Dashboard", layout="wide")
