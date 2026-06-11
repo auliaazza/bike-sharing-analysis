@@ -136,30 +136,30 @@ with tab1:
             f"{registered_ratio:.1f}%"
         )
         
-    # 1. Ensure the date column is datetime format
-    df['dteday'] = pd.to_datetime(df['dteday'])
+    col1, col2 = st.columns(2)
+    # DAILY TREND
+    with col1:
+        df['dteday'] = pd.to_datetime(df['dteday'])
+        daily_trend = df.groupby('dteday')['cnt_day'].sum().reset_index()
+        
+        st.subheader("Daily Rides Trends")
+        st.line_chart(
+            data=daily_trend, 
+            x='dteday', 
+            y='cnt_day',
+            x_label='Date',
+            y_label='Total Rentals'
+            )
+    # HOURLY USAGE BY DAY TYPE
+    with col2:
+        hourly_trend = df.groupby(['hour', 'workingday'])['cnt_hour'].mean().reset_index()
+        hourly_trend['Day Type'] = hourly_trend['workingday'].map({1: 'Working Day', 0: 'Weekend / Holiday'})
+        hourly_pivot = hourly_trend.pivot(index='hour', columns='Day Type', values='cnt_hour')
 
-    # 2. Data aggregation (Daily trend)
-    daily_trend = df.groupby('dteday')['cnt_day'].sum().reset_index()
-
-    # 3. Create visualization
-    fig, ax = plt.subplots(figsize=(12, 5))
-
-    # Plotting the line chart with custom dark blue color (#1d2a62)
-    sns.lineplot(
-        data=daily_trend, 
-        x='dteday', 
-        y='cnt_day', 
-        ax=ax, 
-        color='#1d2a62',  # <--- Perubahan warna di sini
-        linewidth=2
-        )
-
-    # Customizing titles and labels in English
-    ax.set_title("Daily Rides Trends", fontsize=14, pad=15)
-    ax.set_xlabel("Date", fontsize=11)
-    ax.set_ylabel("Total Rentals", fontsize=11)
-    ax.grid(True, linestyle='--', alpha=0.6) # Add light gridlines
-
-    # Display in Streamlit
-    st.pyplot(fig)
+        st.subheader("Hourly Usage Trends by Day Type")
+        st.bar_chart(
+                data=hourly_pivot,
+                color=["#b0bec5", "#1d2a62"], # Urutan warna: Abu-abu untuk Weekend, Biru Tua untuk Working Day
+                x_label="Hour of the Day",
+                y_label="Average Rentals"
+            )
