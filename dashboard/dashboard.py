@@ -176,3 +176,15 @@ with tab1:
             x_label='Normalized Temperature',
             y_label='Total Daily Rentals'
         )
+    #WEATHER IMPACT
+    with col2:
+        weather_trend = df.groupby('weather_situation_day')['cnt_day'].mean().reset_index()
+        st.subheader("Rides by Weather Situation")
+        st.bar_chart(
+            data=weather_trend,
+            x='weather_situation_day',
+            y='cnt_day',
+            color='#1d2a62',
+            x_label='Weather Situation',
+            y_label='Average Daily Rentals'
+        )
