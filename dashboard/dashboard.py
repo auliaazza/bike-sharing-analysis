@@ -167,18 +167,18 @@ with tab1:
     col1, col2, col3 = st.columns(3)
     #TEMPERATURE IMPACT
     with col1:
-    st.subheader("Impact of Temperature on Daily Rentals")
-    fig = px.scatter(
-                df,
-                x="temp_norm_day",    # Sumbu X: Suhu yang sudah dinormalisasi
-                y="cnt_day",         # Sumbu Y: Total rental harian
-                color="demand_level", # Titik-titik akan berwarna berdasarkan tingkat permintaan
-                color_discrete_sequence=['#1d2a62', '#2496B4', '#b0bec5'], # Skema warna biru tua kamu
-                labels={
-                    "temp_norm_day": "Normalized Temperature",
-                    "cnt_day": "Total Daily Rentals",
-                    "demand_level": "Demand Level"
-                },
-                opacity=0.7          # Membuat titik agak transparan agar penumpukan data terlihat
-                )
-        st.plotly_chart(fig, use_container_width=True)
+        st.subheader("Impact of Temperature on Daily Rentals")
+        fig = px.scatter(
+                    df,
+                    x="temp_norm_day",    # Sumbu X: Suhu yang sudah dinormalisasi
+                    y="cnt_day",         # Sumbu Y: Total rental harian
+                    color="demand_level", # Titik-titik akan berwarna berdasarkan tingkat permintaan
+                    color_discrete_sequence=['#1d2a62', '#2496B4', '#b0bec5'], # Skema warna biru tua kamu
+                    labels={
+                        "temp_norm_day": "Normalized Temperature",
+                        "cnt_day": "Total Daily Rentals",
+                        "demand_level": "Demand Level"
+                    },
+                    opacity=0.7          # Membuat titik agak transparan agar penumpukan data terlihat
+                    )
+            st.plotly_chart(fig, use_container_width=True)
