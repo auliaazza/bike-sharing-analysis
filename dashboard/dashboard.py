@@ -103,39 +103,39 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
 with tab1:
     st.subheader("📌 Bike Sharing Usage Overview")
 
-col1, col2, col3, col4, col5 = st.columns(5)
-with col1:
-    st.metric(
-        "Total Rentals",
-        f"{df['cnt_day'].sum():,}"
-    )
-with col2:
-    st.metric(
-        "Average Rentals per Hour",
-        int(df['cnt_hour'].mean())
-    )
-with col3:
-    busiest_day = df.groupby('weekday_day')['cnt_day'].sum().idxmax()
-    st.metric(
-        "Busiest Day",
-        busiest_day
-    )
-with col4:
-    peak_hour = df.groupby('hour')['cnt_hour'].mean().idxmax() 
-    st.metric(
-        "Peak Hours",
-        f"{peak_hour}:00"
-    )
-with col5:
-    total = df['cnt_day'].sum()
-    registered = df['registered_day'].sum()
-    registered_ratio = (registered / total) * 100
+    col1, col2, col3, col4, col5 = st.columns(5)
+    with col1:
+        st.metric(
+            "Total Rentals",
+            f"{df['cnt_day'].sum():,}"
+        )
+    with col2:
+        st.metric(
+            "Average Rentals per Hour",
+            int(df['cnt_hour'].mean())
+        )
+    with col3:
+        busiest_day = df.groupby('weekday_day')['cnt_day'].sum().idxmax()
+        st.metric(
+            "Busiest Day",
+            busiest_day
+        )
+    with col4:
+        peak_hour = df.groupby('hour')['cnt_hour'].mean().idxmax() 
+        st.metric(
+            "Peak Hours",
+            f"{peak_hour}:00"
+        )
+    with col5:
+        total = df['cnt_day'].sum()
+        registered = df['registered_day'].sum()
+        registered_ratio = (registered / total) * 100
     
-    st.metric(
-        "Member Ratio",
-        f"{registered_ratio:.1f}%"
-    )
-with tab1:
+        st.metric(
+            "Member Ratio",
+            f"{registered_ratio:.1f}%"
+        )
+        
     daily_trend = df.groupby('dteday')['cnt_day'].sum().reset_index()
     
     fig, ax = plt.subplots(figsize=(8, 3))
