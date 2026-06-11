@@ -218,3 +218,221 @@ with tab1:
         plt.tight_layout()
         
         st.pyplot(fig)
+
+# USAGE PATTERN ANALYSIS
+with tab2:
+    st.subheader("📅 Rental Patterns by Time and Day Type")
+   
+    col1, col2 = st.columns(2)
+
+    # Date Vs Workingday
+    with col1:
+        fig1, ax1 = plt.subplots(figsize=(6, 4))
+       
+        sns.pointplot(
+            data=filtered_df,
+            x='hour',
+            y='cnt_hour',
+            hue='workingday_hour',
+            ax=ax1
+         )
+        
+        ax1.set_title(
+         'Rental Patterns: Hour vs Working Day (1=Workingday, 0=Weekend/Libur)',
+         fontsize=11
+         )
+        ax1.set_xlabel('Time (0–23)')
+        ax1.set_ylabel('Average Rental Count')
+       
+        st.pyplot(fig1)
+   
+    #Monthly Rental Trends   
+    with col1:
+       fig3, ax3 = plt.subplots(figsize=(6, 4))
+      
+       sns.boxplot(
+           data=filtered_df,
+           x='month_hour',
+           y='cnt_hour',
+           ax=ax3
+           )
+
+       ax3.set_title(
+           'Monthly Rental Trends',
+           fontsize=11
+        )
+       ax3.set_xlabel('Month')
+       ax3.set_ylabel('Rental Count')
+       
+       st.pyplot(fig3)
+            
+    # Rental Patterns by Day of the Week
+    with col2:
+        fig2, ax2 = plt.subplots(figsize=(6, 4))
+       
+        sns.barplot(
+            data=filtered_df,
+            x='weekday_hour',
+            y='cnt_hour',
+            ax=ax2
+        )
+         
+        ax2.set_title(
+            'Rental Patterns by Day of the Week',
+            fontsize=11
+        )
+        ax2.set_xlabel('Day (0=Sunday, 6=Saturday)')
+        ax2.set_ylabel('Average Rental Count')
+        
+        st.pyplot(fig2)
+           
+    #Rental Patterns by Season
+    with col2:
+        fig4, ax4 = plt.subplots(figsize=(6, 4))
+       
+        sns.barplot(
+            data=filtered_df,
+            x='season_hour',
+            y='cnt_hour',
+            hue='holiday_hour',
+            ax=ax4
+        )
+       
+        ax4.set_title(
+             'Rental Patterns by Season & Holiday',
+            fontsize=11
+        )
+        ax4.set_xlabel('Season (1:Spring, 2:Summer, 3:Fall, 4:Winter)')
+        ax4.set_ylabel('Average Rental Count')
+        
+        st.pyplot(fig4)
+
+    # TREN 2011 vs 2012
+    st.subheader("📈 Rental Trends: 2011 vs 2012")
+
+    yearly = filtered_df.groupby('year_day')['cnt_day'].sum().reset_index()
+
+    fig, ax = plt.subplots(figsize= (12, 6))
+    sns.barplot(data=yearly, x='year_day', y='cnt_day', hue='year_day', legend=False)
+
+    # Menambahkan judul dan label
+    ax.set_title('Total Bike Rental Comparison (2011 vs 2012)', fontsize=15)
+    ax.set_xlabel('Year', fontsize=12)
+    ax.set_ylabel('Total Rental Count', fontsize=12)
+
+    # Menambahkan angka total di atas bar
+    for index, row in yearly.iterrows():
+        plt.text(index, row.cnt_day, f'{row.cnt_day:,}', color='black', ha="center", va="bottom")
+
+    if filtered_df.empty:
+        st.warning("Tidak ada data untuk kombinasi filter yang dipilih.")
+    else:
+        st.pyplot(fig)
+   
+    # Melihat tren bulanan untuk melihat perubahan lebih detail
+    df['numeric_month'] = filtered_df['dteday'].dt.month # mengambil nilai bulan dari kolom tanggal
+
+    # Visualisasi tren bulanan
+    fig, ax = plt.subplots(figsize=(12, 6))
+    sns.lineplot(data=filtered_df, x='numeric_month', y='cnt_day', hue='year_day', marker='o', estimator=sum)
+
+    ax.set_title('Monthly Rental Trends (2011 vs 2012)', fontsize=15)
+    ax.set_xlabel('Month (1-12)', fontsize=12)
+    ax.set_ylabel('Total Rentals', fontsize=12)
+    ax.set_xticks(range(1, 13))
+    ax.grid(True, linestyle='--', alpha=0.7)
+    ax.legend(title='Year')
+    
+    st.pyplot(fig)
+   
+
+
+# Weather Conditions Analysis
+with tab3:
+    st.subheader("🌦️ Impact of Weather Conditions on Rentals")
+
+    fig, ax = plt.subplots(figsize= (12, 6))
+    sns.scatterplot(data=filtered_df, x='temp_norm_hour', y='cnt_hour', hue='weather_situation_hour', ax=ax)
+    ax.set_xlabel("Temperature")
+    ax.set_ylabel("Total Rentals")
+   
+    if filtered_df.empty:
+        st.warning("Tidak ada data untuk kombinasi filter yang dipilih.")
+    else:
+        st.pyplot(fig)
+
+# Peak Demand Hours
+with tab4:
+    st.subheader("⏰ Peak Usage Hours")
+
+    peak = filtered_df.groupby('hour')['cnt_hour'].mean().reset_index()
+   
+    fig, ax = plt.subplots(figsize= (12, 7))
+    sns.lineplot(data=peak, x='hour', y='cnt_hour', marker='o', color='tab:blue')
+   
+    # Menambahkan detail grafik
+    ax.set_title('Average Bike Rental per Hour', fontsize=15)
+    ax.set_xlabel('Hour (0-23)', fontsize=12)
+    ax.set_ylabel('Average Rental Count', fontsize=12)
+    ax.set_xticks(range(0, 24))
+    ax.grid(axis='y', linestyle='--', alpha=0.7)
+
+    # Menyoroti beban tertinggi
+    max_hour = peak.loc[peak['cnt_hour'].idxmax(), 'hour']
+    max_val = peak['cnt_hour'].max()
+    ax.annotate(f'Puncak: Jam {int(max_hour)}',
+                 xy=(max_hour, max_val),
+                 xytext=(max_hour+1, max_val+20),
+                 arrowprops=dict(facecolor='black', shrink=0.05))
+   
+    if filtered_df.empty:
+        st.warning("Tidak ada data untuk kombinasi filter yang dipilih.")
+    else:
+        st.pyplot(fig)
+
+    # Karakteristik berdasarkan tipe hari
+    fig, ax = plt.subplots(figsize= (12, 6))
+    sns.lineplot(data=filtered_df, x='hour', y='cnt_hour', hue='workingday_hour', marker='o', errorbar=None)
+   
+    ax.set_title('Hourly Demand: Working Days vs Weekends/Holidays', fontsize=15)
+    ax.set_xlabel('Jam', fontsize=12)
+    ax.set_ylabel('Average Rentals', fontsize=12)
+    ax.set_xticks(range(0, 24))
+    ax.legend(title='Workingday')
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+   
+    if filtered_df.empty:
+        st.warning("Tidak ada data untuk kombinasi filter yang dipilih.")
+    else:
+        st.pyplot(fig)
+
+# Operational Insight
+with tab5:
+    st.subheader("✅ Optimal Period for Maximizing Operations")
+   
+    fig, axes = plt.subplots(2, 1, figsize=(15, 12))
+    hourly_pattern = filtered_df.groupby(['hour', 'workingday_hour'])['cnt_hour'].mean().reset_index()
+
+    #Pola Penggunaan Berdasarkan Jam dan Hari Kerja
+    sns.lineplot(data=hourly_pattern, x='hour', y='cnt_hour', hue='workingday_hour', marker='o', ax=axes[0])
+    axes[0].set_title('Average Bike Rental by Hour (Working Days vs Weekends)', fontsize=14)
+    axes[0].set_xlabel('Hour (0-23)')
+    axes[0].set_ylabel('Average Rental Count')
+    axes[0].legend(['Weekends/Holidays', 'Working Days'])
+    axes[0].set_xticks(range(0, 24))
+    axes[0].grid(True, linestyle='--', alpha=0.7)
+
+    # Pengaruh Kondisi Cuaca dan Suhu
+    # Menggunakan scatter plot untuk melihat hubungan suhu (temp_norm), jumlah peminjaman (cnt), dan cuaca
+    sns.scatterplot(data=filtered_df, x='temp_norm_hour', y='cnt_hour', hue='weather_situation_hour', alpha=0.4, ax=axes[1])
+    axes[1].set_title('Impact of Temperature and Weather Conditions on Rental Demand', fontsize=14)
+    axes[1].set_xlabel('Normalized Temperature (Temp)')
+    axes[1].set_ylabel('Rental Count')
+    axes[1].legend(title='Weather Conditions')
+
+    plt.tight_layout()
+
+    if filtered_df.empty:
+        st.warning("Tidak ada data untuk kombinasi filter yang dipilih.")
+    else:
+        st.pyplot(fig)
