@@ -136,10 +136,20 @@ with tab1:
             f"{registered_ratio:.1f}%"
         )
         
+    # 1. Pastikan kolom tanggal bertipe datetime
+    df['dteday'] = pd.to_datetime(df['dteday'])
+
+    # 2. Data aggregation (Daily trend)
     daily_trend = df.groupby('dteday')['cnt_day'].sum().reset_index()
-    
-    fig, ax = plt.subplots(figsize=(8, 3))
-    sns.lineplot(data=daily_trend, x='dteday', y='cnt_day', ax=ax)
-    ax.set_xlabel("Tanggal")
-    ax.set_ylabel("Total Penyewaan")
-    st.pyplot(fig)
+
+    # 3. Menampilkan subheader di Streamlit
+    st.subheader("Daily Rides Trends")
+
+    # 4. Membuat Line Chart bawaan Streamlit
+    st.line_chart(
+        data=daily_trend, 
+        x='dteday', 
+        y='cnt_day',
+        x_label='Date',
+        y_label='Total Rentals'
+        )
