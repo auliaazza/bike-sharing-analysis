@@ -103,7 +103,7 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
 with tab1:
     st.subheader("📌 Bike Sharing Usage Overview")
 
-col1, col2, col3, col4 = st.columns(4)
+col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
     st.metric(
         "Total Rentals",
@@ -125,4 +125,13 @@ with col4:
     st.metric(
         "Peak Hours",
         f"{peak_hour}:00"
+    )
+with col5:
+    total = df['cnt_day'].sum()
+    registered = df['registered'].sum()
+    registered_ratio = (registered / total) * 100
+    
+    st.metric(
+        "Member Ratio",
+        f"{registered_ratio:.1f}%"
     )
