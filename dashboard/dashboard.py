@@ -135,8 +135,8 @@ with col5:
         "Member Ratio",
         f"{registered_ratio:.1f}%"
     )
-    
- daily_trend = df.groupby('dteday')['cnt_day'].sum().reset_index()
+with tab1:
+    daily_trend = df.groupby('dteday')['cnt_day'].sum().reset_index()
     
     fig, ax = plt.subplots(figsize=(8, 3))
     sns.lineplot(data=daily_trend, x='dteday', y='cnt_day', ax=ax)
