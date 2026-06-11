@@ -180,10 +180,10 @@ with tab1:
                 alpha=0.7,
                 ax=ax
             )
-            ax.set_title("Temperature vs Total Daily Rentals", fontsize=14, pad=15)
-            ax.set_xlabel("Normalized Temperature", fontsize=11)
-            ax.set_ylabel("Total Daily Rentals", fontsize=11)
-            ax.grid(True, linestyle='--', alpha=0.5)
-            
-            ax.legend(title="Demand Level", loc="upper left")
+        ax.set_title("Temperature vs Total Daily Rentals", fontsize=14, pad=15)
+        ax.set_xlabel("Normalized Temperature", fontsize=11)
+        ax.set_ylabel("Total Daily Rentals", fontsize=11)
+        ax.grid(True, linestyle='--', alpha=0.5)
+        ax.legend(title="Demand Level", loc="upper left")
+        
         st.pyplot(fig)
