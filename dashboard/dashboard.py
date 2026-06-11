@@ -41,6 +41,7 @@ date_range = st.sidebar.date_input(
 # 2. Filter by Season
 st.sidebar.subheader("Filter by Season")
 list_season = sorted(df['season_day'].unique())
+
 selected_season_day = st.sidebar.pills(
     label="Pilih Season",
     options=["All"] + list(list_season),
@@ -50,11 +51,12 @@ selected_season_day = st.sidebar.pills(
 
 # 3. Filter by Weather
 st.sidebar.subheader("Filter by Weather")
-weather_options = ["All"] + sorted(df["weather_situation_hour"].unique().tolist())
+weather_options = ["All"] + sorted(df["weather_situation_hour"].unique().))
+
 selected_weather = st.sidebar.radio(
     label="Select Weather",
     options=weather_options,
-    default="All",
+    index=0,
     label_visibility="collapsed"
 )
 
