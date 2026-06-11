@@ -186,3 +186,35 @@ with tab1:
             x_label='Weather Situation',
             y_label='Average Daily Rentals'
         )
+    #USER TYPE
+    with col3:
+        st.subheader("User Type Comparison (Casual vs Registered)")
+        
+        total_casual = df['casual_day'].sum()
+        total_registered = df['registered_day'].sum()
+        
+        labels = ['Casual Users', 'Registered Users']
+        sizes = [total_casual, total_registered]
+        colors = ['#b0bec5', '#1d2a62']
+        
+        fig, ax = plt.subplots(figsize=(6, 6))
+        wedges, texts, autotexts = ax.pie(
+            sizes, 
+            labels=labels, 
+            colors=colors, 
+            autopct='%1.1f%%', # Menampilkan persentase dengan 1 angka di belakang koma
+            startangle=90,     # Memutar grafik agar tegak lurus dari atas
+            textprops=dict(color="black", fontsize=11) # Warna teks label
+        )
+        
+        for autotext in autotexts:
+            autotext.set_color('white') # Mengubah teks persen menjadi putih agar kontras
+            autotext.set_weight('bold')
+            
+        centre_circle = plt.Circle((0, 0), 0.50, fc='white')
+        fig.gca().add_artist(centre_circle)
+        
+        ax.axis('equal')
+        plt.tight_layout()
+        
+        st.pyplot(fig)
