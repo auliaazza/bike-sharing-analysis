@@ -128,7 +128,7 @@ with col4:
     )
 with col5:
     total = df['cnt_day'].sum()
-    registered = df['registered'].sum()
+    registered = df['registered_day'].sum()
     registered_ratio = (registered / total) * 100
     
     st.metric(
