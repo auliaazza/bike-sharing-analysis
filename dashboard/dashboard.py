@@ -173,6 +173,7 @@ with tab1:
             x='temp_norm_day',
             y='cnt_day',
             color='demand_level',
+            color_discrete_sequence=['#1d2a6280', '#2496b480', '#ff3b3080'],
             x_label='Normalized Temperature',
             y_label='Total Daily Rentals'
         )
