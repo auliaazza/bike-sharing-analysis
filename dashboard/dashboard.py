@@ -18,45 +18,6 @@ def load_data():
 
 df = load_data()
 
-st.markdown("""
-    <style>
-    /* Mengubah warna tombol kapsul (st.pills) yang sedang aktif menjadi Biru #87AECE */
-    div[data-testid="stBaseButton-pillsActiveElements"] {
-        background-color: #87AECE !important;
-        color: white !important;
-        border-color: #87AECE !important;
-    }
-    
-    /* Mengubah warna tombol kapsul yang tidak aktif menjadi Abu-abu #EDEDED */
-    div[data-testid="stBaseButton-pillsNeutralElements"] {
-        background-color: #EDEDED !important;
-        color: #5A6A85 !important;
-        border-color: #EDEDED !important;
-    }
-
-    /* Mengubah warna border input tanggal saat aktif */
-    div[data-testid="stDateInput"] input:focus {
-        border-color: #87AECE !important;
-        box-shadow: 0 0 0 0.2rem rgba(135, 174, 206, 0.25) !important;
-    }
-
-    /* Mengubah warna teks judul kategori filter di sidebar (Biru Gelap #1D2A62) */
-    .filter-label {
-        font-weight: 600;
-        color: #1D2A62;
-        font-size: 14px;
-        margin-top: 18px;
-        margin-bottom: 4px;
-    }
-    
-    /* Mengubah warna garis bawah Tab yang sedang aktif agar senada dengan palet */
-    div[data-testid="stTabBar"] button[aria-selected="true"] {
-        color: #1D2A62 !important;
-        border-bottom-color: #87AECE !important;
-    }
-    </style>
-""", unsafe_allow_html=True)
-
 # SIDEBAR
 st.sidebar.image("dashboard/logo_bike_sharing.png" , width= 220)
 
@@ -90,7 +51,7 @@ selected_season_day = st.sidebar.pills(
 # 3. Filter by Weather
 st.sidebar.subheader("Filter by Weather")
 weather_options = ["All"] + sorted(df["weather_situation_hour"].unique().tolist())
-selected_weather = st.sidebar.pills(
+selected_weather = st.sidebar.radio(
     label="Select Weather",
     options=weather_options,
     default="All",
