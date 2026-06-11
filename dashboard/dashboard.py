@@ -121,7 +121,7 @@ with col3:
         busiest_day
     )
 with col4:
-    peak_hour = df.groupby('hr')['cnt_day'].mean().idxmax() 
+    peak_hour = df.groupby('hour')['cnt_hour'].mean().idxmax() 
     st.metric(
         "Peak Hours",
         f"{peak_hour}:00"
