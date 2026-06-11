@@ -112,7 +112,7 @@ with col1:
 with col2:
     st.metric(
         "Average Rentals per Hour",
-        int(df['cnt_hour'].mean())/60
+        int(df['cnt_hour'].mean())
     )
 with col3:
     busiest_day = df.groupby('weekday_day')['cnt_day'].sum().idxmax()
@@ -121,7 +121,7 @@ with col3:
         busiest_day
     )
 with col4:
-    peak_hour = df.groupby('hour')['cnt_day'].mean().idxmax() 
+    peak_hour = df.groupby('hour')['cnt'].mean().idxmax() 
     st.metric(
         "Peak Hours",
         f"{peak_hour}:00"
