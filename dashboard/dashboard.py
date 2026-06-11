@@ -84,13 +84,15 @@ if selected_season_day != "All":
 # Filter Berdasarkan Weather
 if selected_weather != "All":
     filtered_df = filtered_df[filtered_df["weather_situation_hour"] == selected_weather]
+    
+#---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 # MAIN DATA
 st.write(f"Active Data Range: **{start_date}** to **{end_date}**")
 
-# Membuat 5 tab sesuai request kamu
+# TAB
 tab1, tab2, tab3, tab4, tab5 = st.tabs([
-    "📊 Overview", 
+    "Overview", 
     "Usage Patterns",
     "Weather Conditions Analysis",
     "Peak Demand Hours",
