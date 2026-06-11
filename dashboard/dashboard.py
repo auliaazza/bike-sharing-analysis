@@ -159,7 +159,7 @@ with tab1:
         st.subheader("Hourly Usage Trends by Day Type")
         st.bar_chart(
                 data=hourly_pivot,
-                color=color=["#b0bec5", "#1d2a62"],
+                color=["#b0bec5", "#1d2a62"],
                 x_label="Hour of the Day",
                 y_label="Average Rentals"
             )
