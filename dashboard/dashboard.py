@@ -51,7 +51,14 @@ selected_season_day = st.sidebar.pills(
 
 # 3. Filter by Weather
 st.sidebar.subheader("Filter by Weather")
-weather_options = ["All"] + sorted(df["weather_situation_hour"].unique().))
+weather_options = [
+    "All",
+    "Clear",
+    "Mist",
+    "Light Snow",
+    "Light Rain",
+    "Heavy Rain"
+]
 
 selected_weather = st.sidebar.radio(
     label="Select Weather",
