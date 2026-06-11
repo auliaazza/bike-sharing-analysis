@@ -135,7 +135,8 @@ with tab1:
             "Member Ratio",
             f"{registered_ratio:.1f}%"
         )
-        
+
+    
     col1, col2 = st.columns(2)
     # DAILY TREND
     with col1:
@@ -162,16 +163,17 @@ with tab1:
                 x_label="Hour of the Day",
                 y_label="Average Rentals"
             )
-   
-top_stations = df.groupby(
-        ['start_station_name', 'start_lat', 'start_lng']
-    ).size().reset_index(name='Total Trips')
-top_10_stations = top_stations.sort_values(by='Total Trips', ascending=False).head(10)
-st.subheader("Top Start Stations Map")
-st.map(
-        data=top_10_stations,
-        latitude='start_lat',    # Ganti dengan nama kolom latitude di df kamu
-        longitude='start_lng',   # Ganti dengan nama kolom longitude di df kamu
-        size='Total Trips',      # Catatan: Fitur 'size' ini baru optimal di Streamlit versi terbaru
-        color='#1d2a62'          # Mengubah warna titik koordinat menjadi biru tua kesukaanmu
-        )
+    
+    col1, col2, col3 = st.columns(3)
+    #TEMPERATURE IMPACT
+    with col1:
+        st.subheader("Impact of Temperature on Daily Rentals")
+        st.scatter_chart(
+                data=df,
+                x='temp_norm_day',
+                y='cnt_day',
+                color='demand_level',
+                color_discrete_sequence=['#1d2a62', '#2496B4', '#b0bec5'], # Urutan warna dari biru tua ke abu-abu
+                x_label='Normalized Temperature',
+                y_label='Total Daily Rentals'
+            )
