@@ -98,3 +98,31 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
     "Peak Demand Hours",
     "Operational Insight"
 ])
+
+# TAB 1 (OVERVIEW)
+with tab1:
+    st.subheader("📌 Overview Penggunaan Bike Sharing")
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.metric(
+        "Total Penyewaan",
+        f"{df['cnt_day'].sum():,}"
+    )
+
+with col2:
+    st.metric(
+        "Rata-rata Penyewaan per Jam",
+        int(df['cnt_hour'].mean())
+    )
+
+with col3:
+    busiest = df.loc[df['cnt_day'].idxmax(), 'dteday']
+    date_formatted = f"{busiest:%d/%m/%Y}"
+    st.metric(
+        "Tanggal Teramai",
+        date_formatted
+    )
+
+    
