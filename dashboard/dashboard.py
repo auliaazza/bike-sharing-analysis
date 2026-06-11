@@ -168,15 +168,14 @@ with tab1:
     #TEMPERATURE IMPACT
     with col1:
         st.subheader("Impact of Temperature on Daily Rentals")
-        
         fig, ax = plt.subplots(figsize=(10, 5))
-        
+    
         sns.scatterplot(
                 data=df,
                 x='temp_norm_day',
                 y='cnt_day',
                 hue='demand_level',
-                palette={'High': '#1d2a62', 'Medium': '#2496B4', 'Low': '#b0bec5'}, # Sesuaikan key ini dengan isi demand_level kamu
+                palette=['High': '#1d2a62', 'Medium': '#2496B4', 'Low': '#b0bec5'],
                 alpha=0.7,
                 ax=ax
             )
