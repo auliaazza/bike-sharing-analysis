@@ -153,7 +153,7 @@ with tab1:
     # HOURLY USAGE BY DAY TYPE
     with col2:
         hourly_trend = df.groupby(['hour', 'workingday_hour'])['cnt_hour'].mean().reset_index()
-        hourly_pivot = hourly_trend.pivot(index='hour', columns='Day Type', values='cnt_hour')
+        hourly_pivot = hourly_trend.pivot(index='hour', columns='workingday_hour', values='cnt_hour')
 
         st.subheader("Hourly Usage Trends by Day Type")
         st.bar_chart(
