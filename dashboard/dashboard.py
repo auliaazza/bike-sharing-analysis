@@ -175,7 +175,6 @@ with tab1:
                 x='temp_norm_day',
                 y='cnt_day',
                 hue='demand_level',
-                palette=['High': '#1d2a62', 'Medium': '#2496B4', 'Low': '#b0bec5'],
                 alpha=0.7,
                 ax=ax
             )
