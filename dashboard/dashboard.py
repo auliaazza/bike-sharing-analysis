@@ -162,15 +162,13 @@ with tab1:
                 x_label="Hour of the Day",
                 y_label="Average Rentals"
             )
-   top_stations = df.groupby(
+   
+top_stations = df.groupby(
         ['start_station_name', 'start_lat', 'start_lng']
     ).size().reset_index(name='Total Trips')
-
-    top_10_stations = top_stations.sort_values(by='Total Trips', ascending=False).head(10)
-
-    st.subheader("Top Start Stations Map")
-
-    st.map(
+top_10_stations = top_stations.sort_values(by='Total Trips', ascending=False).head(10)
+st.subheader("Top Start Stations Map")
+st.map(
         data=top_10_stations,
         latitude='start_lat',    # Ganti dengan nama kolom latitude di df kamu
         longitude='start_lng',   # Ganti dengan nama kolom longitude di df kamu
