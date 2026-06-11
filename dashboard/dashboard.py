@@ -3,7 +3,6 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import plotly.express as px
 
 # SET CONFIG
 st.set_page_config(page_title="Bike Sharing Analysis Dashboard", layout="wide")
@@ -167,20 +166,24 @@ with tab1:
     
     col1, col2, col3 = st.columns(3)
     #TEMPERATURE IMPACT
-    with col1:
+        with col1:
         st.subheader("Impact of Temperature on Daily Rentals")
         
-        fig = px.scatter(
-            df,
-            x="temp_norm_day",    # Sumbu X: Suhu yang sudah dinormalisasi
-            y="cnt_day",         # Sumbu Y: Total rental harian
-            color="demand_level", # Titik-titik akan berwarna berdasarkan tingkat permintaan
-            color_discrete_sequence=['#1d2a62', '#2496B4', '#b0bec5'], # Skema warna biru tua kamu
-            labels={
-                "temp_norm_day": "Normalized Temperature",
-                "cnt_day": "Total Daily Rentals",
-                "demand_level": "Demand Level"
-                },
-                opacity=0.7          # Membuat titik agak transparan agar penumpukan data terlihat
+        fig, ax = plt.subplots(figsize=(10, 5))
+        
+        sns.scatterplot(
+                data=df,
+                x='temp_norm_day',
+                y='cnt_day',
+                hue='demand_level',
+                palette={'High': '#1d2a62', 'Medium': '#2496B4', 'Low': '#b0bec5'}, # Sesuaikan key ini dengan isi demand_level kamu
+                alpha=0.7,
+                ax=ax
             )
-        st.plotly_chart(fig, use_container_width=True)
+            ax.set_title("Temperature vs Total Daily Rentals", fontsize=14, pad=15)
+            ax.set_xlabel("Normalized Temperature", fontsize=11)
+            ax.set_ylabel("Total Daily Rentals", fontsize=11)
+            ax.grid(True, linestyle='--', alpha=0.5)
+            
+            ax.legend(title="Demand Level", loc="upper left")
+        st.pyplot(fig)
