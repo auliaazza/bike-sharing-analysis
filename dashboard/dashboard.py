@@ -364,47 +364,49 @@ with tab3:
 # Peak Demand Hours
 with tab4:
     st.subheader("⏰ Peak Usage Hours")
+    col1, col2 = st.columns (2)
+    with col1:
+        peak = filtered_df.groupby('hour')['cnt_hour'].mean().reset_index()
+   
+        fig, ax = plt.subplots(figsize= (12, 7))
+        sns.lineplot(data=peak, x='hour', y='cnt_hour', marker='o', color='tab:blue')
+       
+        # Menambahkan detail grafik
+        ax.set_title('Average Bike Rental per Hour', fontsize=15)
+        ax.set_xlabel('Hour (0-23)', fontsize=12)
+        ax.set_ylabel('Average Rental Count', fontsize=12)
+        ax.set_xticks(range(0, 24))
+        ax.grid(axis='y', linestyle='--', alpha=0.7)
+    
+        # Menyoroti beban tertinggi
+        max_hour = peak.loc[peak['cnt_hour'].idxmax(), 'hour']
+        max_val = peak['cnt_hour'].max()
+        ax.annotate(f'Puncak: Jam {int(max_hour)}',
+                     xy=(max_hour, max_val),
+                     xytext=(max_hour+1, max_val+20),
+                     arrowprops=dict(facecolor='black', shrink=0.05))
+       
+        if filtered_df.empty:
+            st.warning("Tidak ada data untuk kombinasi filter yang dipilih.")
+        else:
+            st.pyplot(fig)
 
-    peak = filtered_df.groupby('hour')['cnt_hour'].mean().reset_index()
-   
-    fig, ax = plt.subplots(figsize= (12, 7))
-    sns.lineplot(data=peak, x='hour', y='cnt_hour', marker='o', color='tab:blue')
-   
-    # Menambahkan detail grafik
-    ax.set_title('Average Bike Rental per Hour', fontsize=15)
-    ax.set_xlabel('Hour (0-23)', fontsize=12)
-    ax.set_ylabel('Average Rental Count', fontsize=12)
-    ax.set_xticks(range(0, 24))
-    ax.grid(axis='y', linestyle='--', alpha=0.7)
-
-    # Menyoroti beban tertinggi
-    max_hour = peak.loc[peak['cnt_hour'].idxmax(), 'hour']
-    max_val = peak['cnt_hour'].max()
-    ax.annotate(f'Puncak: Jam {int(max_hour)}',
-                 xy=(max_hour, max_val),
-                 xytext=(max_hour+1, max_val+20),
-                 arrowprops=dict(facecolor='black', shrink=0.05))
-   
-    if filtered_df.empty:
-        st.warning("Tidak ada data untuk kombinasi filter yang dipilih.")
-    else:
-        st.pyplot(fig)
-
-    # Karakteristik berdasarkan tipe hari
-    fig, ax = plt.subplots(figsize= (12, 6))
-    sns.lineplot(data=filtered_df, x='hour', y='cnt_hour', hue='workingday_hour', marker='o', errorbar=None)
-   
-    ax.set_title('Hourly Demand: Working Days vs Weekends/Holidays', fontsize=15)
-    ax.set_xlabel('Jam', fontsize=12)
-    ax.set_ylabel('Average Rentals', fontsize=12)
-    ax.set_xticks(range(0, 24))
-    ax.legend(title='Workingday')
-    plt.grid(axis='y', linestyle='--', alpha=0.7)
-   
-    if filtered_df.empty:
-        st.warning("Tidak ada data untuk kombinasi filter yang dipilih.")
-    else:
-        st.pyplot(fig)
+    with col2:
+        # Karakteristik berdasarkan tipe hari
+        fig, ax = plt.subplots(figsize= (12, 6))
+        sns.lineplot(data=filtered_df, x='hour', y='cnt_hour', hue='workingday_hour', marker='o', errorbar=None)
+       
+        ax.set_title('Hourly Demand: Working Days vs Weekends/Holidays', fontsize=15)
+        ax.set_xlabel('Jam', fontsize=12)
+        ax.set_ylabel('Average Rentals', fontsize=12)
+        ax.set_xticks(range(0, 24))
+        ax.legend(title='Workingday')
+        plt.grid(axis='y', linestyle='--', alpha=0.7)
+       
+        if filtered_df.empty:
+            st.warning("Tidak ada data untuk kombinasi filter yang dipilih.")
+        else:
+            st.pyplot(fig)
 
 # Operational Insight
 with tab5:
