@@ -104,8 +104,6 @@ with tab1:
     st.subheader("📌 Bike Sharing Usage Overview")
 
     col1, col2, col3, col4, col5 = st.columns(5, border=True)
-    [theme.columns]
-    backgrounColor="lavender"
     with col1:
         st.metric(
             "Total Rentals",
@@ -165,8 +163,7 @@ with tab1:
             x='dteday', 
             y='cnt_day',
             x_label='Date',
-            y_label='Total Rentals',
-            color="blue"
+            y_label='Total Rentals'
             )
         
     # HOURLY USAGE BY DAY TYPE
