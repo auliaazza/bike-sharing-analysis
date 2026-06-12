@@ -217,7 +217,7 @@ with tab1:
             x='temp_norm_day',
             y='cnt_day',
             color='season',
-            opacity=0,5,
+            opacity=0.5,
             x_label='Normalized Temperature',
             y_label='Total Daily Rentals'
         )
