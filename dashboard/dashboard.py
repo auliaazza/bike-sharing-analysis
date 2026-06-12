@@ -217,32 +217,10 @@ with tab1:
         st.plotly_chart(fig, use_container_width=True)
         
 
-    col1, col2, col3 = st.columns([1, 1, 1], border=True)
-    #TEMPERATURE IMPACT
-    with col1:
-        st.subheader("Temperature vs. Rental Trends")
-        filtered_df['temp_category'] = pd.cut(
-            filtered_df['temp_norm_day'],
-            bins=[0, 0.33, 0.66, 1],
-            labels=['Low', 'Medium', 'High']
-        )
-        
-        fig = px.scatter(
-            filtered_df,
-            x='temp_norm_day',
-            y='cnt_day',
-            color='temp_category',
-            opacity=0.5
-        )
-        fig.update_layout(
-            xaxis_title='Normalized Temperature',
-            yaxis_title='Total Daily Rentals'
-        )
-        
-        st.plotly_chart(fig, use_container_width=True)
-        
+    col1, col2 = st.columns([1, 2], border=True)
+    
     #WEATHER IMPACT
-    with col2:
+    with col1:
         st.subheader("Weather Situation Distribution")
         weather_dist = (
             filtered_df['weather_situation_day']
@@ -269,7 +247,7 @@ with tab1:
         st.plotly_chart(fig, use_container_width=True)
     
     # HOURLY USAGE BY DAY TYPE
-    with col3:
+    with col2:
         hourly_trend = filtered_df.groupby(['hour', 'workingday_hour'])['cnt_hour'].mean().reset_index()
         hourly_pivot = hourly_trend.pivot(index='hour', columns='workingday_hour', values='cnt_hour')
 
@@ -279,6 +257,28 @@ with tab1:
                 x_label="Hour of the Day",
                 y_label="Average Rentals"
             )
+#TEMPERATURE IMPACT
+    st.subheader("Temperature vs. Rental Trends")
+    filtered_df['temp_category'] = pd.cut(
+        filtered_df['temp_norm_day'],
+        bins=[0, 0.33, 0.66, 1],
+        labels=['Low', 'Medium', 'High']
+    )
+        
+    fig = px.scatter(
+        filtered_df,
+        x='temp_norm_day',
+        y='cnt_day',
+        color='temp_category',
+        opacity=0.5
+    )
+    fig.update_layout(
+        xaxis_title='Normalized Temperature',
+        yaxis_title='Total Daily Rentals'
+    )
+        
+    st.plotly_chart(fig, use_container_width=True)
+        
 
 # USAGE PATTERN ANALYSIS
 with tab2:
