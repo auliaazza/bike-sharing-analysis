@@ -25,13 +25,13 @@ st.sidebar.image("dashboard/logo_bike_sharing.png" , width= 220)
 st.sidebar.header("Filter Controls")
 
 # 1. Filter Custome Date Range
-st.sidebar.subheader("Filter by Date Range")
+st.sidebar.subheader("Select Date Range")
 min_date = df['dteday'].min().date()
 max_date = df['dteday'].max().date()
 
 # Menggunakan input rentang tanggal bawaan Streamlit
 date_range = st.sidebar.date_input(
-    label="Pilih Rentang",
+    label="Date Range",
     value=(min_date, max_date),
     min_value=min_date,
     max_value=max_date,
@@ -39,7 +39,7 @@ date_range = st.sidebar.date_input(
 )
 
 # 2. Filter by Season
-st.sidebar.subheader("Filter by Season")
+st.sidebar.subheader("Choose a Season")
 list_season = sorted(df['season_day'].unique())
 
 selected_season_day = st.sidebar.pills(
@@ -50,7 +50,7 @@ selected_season_day = st.sidebar.pills(
 )
 
 # 3. Filter by Weather
-st.sidebar.subheader("Filter by Weather")
+st.sidebar.subheader("Choose a Weather")
 weather_options = [
     "All",
     "Clear",
@@ -108,7 +108,7 @@ with tab1:
         st.metric(
             "Total Rentals",
             f"{filtered_df['cnt_day'].sum():,}"
-        )        
+        )      
     with col2:
         st.metric(
             "Average Rentals per Hour",
@@ -137,7 +137,7 @@ with tab1:
 
         st.metric(
             label="Peak Hour",
-            value=str(peak_hour) + ":00" if isinstance(peak_hour, int) else peak_hour,
+            value=f"{int(peak_hour):02d}:00" if isinstance(peak_hour, (int, float)) else str(peak_hour),
             delta=f"{peak_hour_value:,} total rides" if peak_hour_value > 0 else None
         )
     with col5:
