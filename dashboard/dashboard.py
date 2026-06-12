@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import plotly.express as px
 
 # SET CONFIG
 st.set_page_config(page_title="Bike Sharing Analysis Dashboard", layout="wide")
@@ -169,7 +170,7 @@ with tab1:
             y='cnt_day',
             x_label='Date',
             y_label='Total Rentals',
-            color=["#3E7CB1"]
+            color=["#42A5F5"]
             )
         
     # HOURLY USAGE BY DAY TYPE
@@ -184,7 +185,7 @@ with tab1:
         else:
             labels = ['Casual Users', 'Registered Users']
             sizes = [total_casual, total_registered]
-            colors = ['#81A4CD', '#3E7CB1']
+            colors = ['#90CAF9', '#2196F3']
 
         fig, ax = plt.subplots(figsize=(6, 6))
         
@@ -211,14 +212,16 @@ with tab1:
     #TEMPERATURE IMPACT
     with col1:
         st.subheader("Impact of Temperature on Daily Rentals")
-        st.scatter_chart(
-            data=df,
+        fig = px.scatter(
+            data=filtered_df,
             x='temp_norm_day',
             y='cnt_day',
-            color='demand_level',
+            color='season',
+            opacicty=0,5,
             x_label='Normalized Temperature',
             y_label='Total Daily Rentals'
         )
+        st.plotly_chart(fig, use_container_width=True)
     #WEATHER IMPACT
     with col2:
         weather_trend = df.groupby('weather_situation_day')['cnt_day'].mean().reset_index()
