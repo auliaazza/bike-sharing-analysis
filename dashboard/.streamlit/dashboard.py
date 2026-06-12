@@ -98,7 +98,6 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
     "Peak Demand Hours",
     "Operational Insight"
 ])
-tabs = st.tabs(border=True)
 
 # TAB 1 (OVERVIEW)
 with tab1:
