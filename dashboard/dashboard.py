@@ -474,8 +474,8 @@ with tab3:
 
 # Peak Demand Hours
 with tab4:
-    col1, col2 =st.columns(2, border=True)
     st.subheader("⏰ Peak Usage Hours")
+    col1, col2 =st.columns(2, border=True)
     with col1:
         st.subheader("Average Bike Rental per Hour")
         if filtered_df.empty:
@@ -515,8 +515,14 @@ with tab4:
         if filtered_df.empty:
             st.warning("Tidak ada data untuk kombinasi filter yang dipilih.")
         else:
+            hourly = (
+                filtered_df
+                .groupby(["hour", "workingday_hour"])["cnt_hour"]
+                .mean()
+                .reset_index()
+            )
             fig = px.line(
-                filtered_df,
+                hourly,
                 x="hour",
                 y="cnt_hour",
                 color="workingday_hour",
