@@ -222,6 +222,12 @@ with tab1:
     #TEMPERATURE IMPACT
     with col1:
         st.subheader("Temperature vs. Rental Trends")
+        filtered_df['temp_category'] = pd.cut(
+            filtered_df['temp_norm_day'],
+            bins=[0, 0.5, 1],
+            labels=['Low Temperature', 'High Temperature']
+            )
+        
         fig = px.scatter(
             filtered_df,
             x='temp_norm_day',
@@ -494,3 +500,4 @@ with tab5:
         st.warning("Tidak ada data untuk kombinasi filter yang dipilih.")
     else:
         st.pyplot(fig)
+
