@@ -135,9 +135,14 @@ with tab1:
             peak_hour = "No Data"
             peak_hour_value = 0
 
+        if peak_hour != "No Data":
+            hour_display = f"{int(peak_hour):02d}:00"
+        else:
+            hour_display = "No Data"
+
         st.metric(
             label="Peak Hour",
-            value=f"{int(peak_hour):02d}:00" if isinstance(peak_hour, (int, float)) else str(peak_hour),
+            value=hour_display,
             delta=f"{peak_hour_value:,} total rides" if peak_hour_value > 0 else None
         )
     with col5:
