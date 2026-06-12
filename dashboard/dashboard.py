@@ -199,17 +199,13 @@ with tab1:
         )
 
         fig.update_layout(
-            annotations=[
-                dict(
-                    text="Users",
-                    x=0.5,
-                    y=0.5,
-                    font_size=18,
-                    showarrow=False
-                )
-            ]
+            legend=dict(
+                orientation="h",      # horizontal
+                y=-0.15,              # posisi di bawah chart
+                x=0.5,
+                xanchor="center"
+            )
         )
-
         st.plotly_chart(fig, use_container_width=True)
         
 
