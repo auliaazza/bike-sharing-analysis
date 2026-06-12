@@ -12,14 +12,14 @@ st.title("Bike Sharing Analysis Dashboard")
 # LOAD DATA
 @st.cache_data
 def load_data():
-    df = pd.read_csv("dashboard/main_data.csv")
+    df = pd.read_csv("bike-sharing-analysis/dashboard/main_data.csv")
     df['dteday'] = pd.to_datetime(df['dteday'])
     return df
 
 df = load_data()
 
 # SIDEBAR
-st.sidebar.image("dashboard/logo_bike_sharing.png" , width= 220)
+st.sidebar.image("bike-sharing-analysis/dashboard/logo_bike_sharing.png" , width= 220)
 
 #Filter Interaktif
 st.sidebar.header("Filter Controls")
