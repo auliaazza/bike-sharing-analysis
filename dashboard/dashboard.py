@@ -169,7 +169,7 @@ with tab1:
             y='cnt_day',
             x_label='Date',
             y_label='Total Rentals',
-            color=["#2F4156"]
+            color=["#3E7CB1"]
             )
         
     # HOURLY USAGE BY DAY TYPE
@@ -184,7 +184,7 @@ with tab1:
         else:
             labels = ['Casual Users', 'Registered Users']
             sizes = [total_casual, total_registered]
-            colors = ['#b0bec5', '#1d2a62']
+            colors = ['#81A4CD', '#DBE4EE']
 
         fig, ax = plt.subplots(figsize=(6, 6))
         
