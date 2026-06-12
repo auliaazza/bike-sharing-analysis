@@ -8,21 +8,6 @@ import plotly.express as px
 # SET CONFIG
 st.set_page_config(page_title="Bike Sharing Analysis Dashboard", layout="wide")
 st.title("Bike Sharing Analysis Dashboard")
-st.markdown(
-    """
-    <style>
-    /* Mengubah warna latar belakang utama */
-    .stApp {
-        background-color: #00000;
-    }
-    /* Mengubah warna teks global */
-    html, body, [class*="css"]  {
-        color: #262730;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
 
 # LOAD DATA
 @st.cache_data
