@@ -193,7 +193,7 @@ with tab1:
             colors=colors, 
             autopct='%1.1f%%', 
             startangle=90,     
-            textprops=dict(color="black", fontsize=10)
+            textprops=dict(color="black", fontsize=18)
         )
         
         for autotext in autotexts:
