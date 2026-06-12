@@ -185,7 +185,7 @@ with tab1:
             sizes = [total_casual, total_registered]
             colors = ['#b0bec5', '#1d2a62']
 
-        fig, ax = plt.subplots(figsize=(7, 4))
+        fig, ax = plt.subplots(figsize=(6, 6))
         
         wedges, texts, autotexts = ax.pie(
             sizes, 
