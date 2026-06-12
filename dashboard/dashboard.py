@@ -216,7 +216,7 @@ with tab1:
             filtered_df,
             x='temp_norm_day',
             y='cnt_day',
-            color='season_hour',
+            color='temp_norm_day',
             opacity=0.5
         )
         fig.update_layout(
