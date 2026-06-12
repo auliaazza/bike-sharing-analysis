@@ -343,6 +343,7 @@ with tab2:
             weekday_trend,
             x='weekday_hour',
             y='cnt_hour',
+            color='cnt_hour',
             title='Rental Patterns by Day of the Week'
         )
         fig.update_layout(
@@ -519,3 +520,4 @@ with tab5:
         st.warning("Tidak ada data untuk kombinasi filter yang dipilih.")
     else:
         st.pyplot(fig)
+        
