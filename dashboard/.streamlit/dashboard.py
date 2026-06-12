@@ -104,6 +104,7 @@ with tab1:
     st.subheader("📌 Bike Sharing Usage Overview")
 
     col1, col2, col3, col4, col5 = st.columns(5)
+    cols = st.columns(5, border=True)
     with col1:
         st.metric(
             "Total Rentals",
@@ -149,7 +150,6 @@ with tab1:
             "Member Ratio",
             f"{registered_ratio:.1f}%"
         )
-    cols = st.columns(5, border=True)
 
     
     col1, col2 = st.columns(2)
