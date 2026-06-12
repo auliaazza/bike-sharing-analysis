@@ -98,6 +98,7 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
     "Peak Demand Hours",
     "Operational Insight"
 ])
+tabs = st.tabs(border=True)
 
 # TAB 1 (OVERVIEW)
 with tab1:
@@ -149,6 +150,7 @@ with tab1:
             "Member Ratio",
             f"{registered_ratio:.1f}%"
         )
+    cols = st.columns(5, border=True)
 
     
     col1, col2 = st.columns(2)
@@ -163,8 +165,10 @@ with tab1:
             x='dteday', 
             y='cnt_day',
             x_label='Date',
-            y_label='Total Rentals'
+            y_label='Total Rentals',
+            color="blue"
             )
+        
     # HOURLY USAGE BY DAY TYPE
     with col2:
         hourly_trend = filtered_df.groupby(['hour', 'workingday_hour'])['cnt_hour'].mean().reset_index()
