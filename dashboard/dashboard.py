@@ -168,7 +168,8 @@ with tab1:
             x='dteday', 
             y='cnt_day',
             x_label='Date',
-            y_label='Total Rentals'
+            y_label='Total Rentals',
+            color=["#2F4156"]
             )
         
     # HOURLY USAGE BY DAY TYPE
