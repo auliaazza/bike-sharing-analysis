@@ -176,7 +176,6 @@ with tab1:
     #USER TYPE
     with col2:
         st.subheader("User Type Comparison")
-        
         user_df = pd.DataFrame({
             "User Type": ["Casual Users", "Registered Users"],
             "Count": [
