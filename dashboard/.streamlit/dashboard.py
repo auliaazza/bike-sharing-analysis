@@ -112,7 +112,7 @@ with tab1:
     with col2:
         st.metric(
             "Average Rentals per Hour",
-            int(filtered_df['cnt_hour'].mean())
+            int(filtered_df['cnt_hour'].mean() if not pd.isna(filtered_df['cnt_hour'].mean()) else 0)
         )
     with col3:
         busiest_day = filtered_df.groupby('weekday_day')['cnt_day'].sum().idxmax()
