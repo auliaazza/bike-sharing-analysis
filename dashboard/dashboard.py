@@ -103,7 +103,7 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
 with tab1:
     st.subheader("📌 Bike Sharing Usage Overview")
 
-    col1, col2, col3, col4, col5 = st.columns(5, border=True, theme.secondaryBackgroundColor=="lavender")
+    col1, col2, col3, col4, col5 = st.columns(5, border=True)
     with col1:
         st.metric(
             "Total Rentals",
@@ -151,7 +151,7 @@ with tab1:
         )
 
     
-    col1, col2 = st.columns(2)
+    col1, col2 = st.columns([3, 1])
     # DAILY TREND
     with col1:
         filtered_df['dteday'] = pd.to_datetime(filtered_df['dteday'])
