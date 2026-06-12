@@ -103,10 +103,8 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
 with tab1:
     st.subheader("📌 Bike Sharing Usage Overview")
 
-    col1, col2, col3, col4, col5 = st.columns(5)
-    cols = st.columns(5, border=True)
+    col1, col2, col3, col4, col5 = st.columns(5, border=True)
     with col1:
-        cols.markdown("### Total Rentals")
         st.metric(
             "Total Rentals",
             f"{filtered_df['cnt_day'].sum():,}"
