@@ -220,8 +220,7 @@ with tab1:
             opacity=0.5,
            labels={
                'temp_norm_day': 'Normalized Temperature',
-               'cnt_day': 'Total Daily Rentals',
-               'season': 'Season'}
+               'cnt_day': 'Total Daily Rentals'}
                )
         st.plotly_chart(fig, use_container_width=True)
         
