@@ -220,9 +220,10 @@ with tab1:
             opacity=0.5
         )
         fig.update_layout(
-            xaxis_tittle='Normalized Temperature',
+            xaxis_title='Normalized Temperature',
             yaxis_title='Total Daily Rentals'
         )
+        
         st.plotly_chart(fig, use_container_width=True)
         
     #WEATHER IMPACT
