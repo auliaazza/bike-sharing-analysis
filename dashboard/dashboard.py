@@ -474,78 +474,96 @@ with tab3:
 
 # Peak Demand Hours
 with tab4:
+    col1, col2 =st.columns(2, border=True)
     st.subheader("⏰ Peak Usage Hours")
-    col1, col2 = st.columns (2)
     with col1:
-        peak = filtered_df.groupby('hour')['cnt_hour'].mean().reset_index()
-   
-        fig, ax = plt.subplots(figsize= (12, 7))
-        sns.lineplot(data=peak, x='hour', y='cnt_hour', marker='o', color='tab:blue')
-       
-        # Menambahkan detail grafik
-        ax.set_title('Average Bike Rental per Hour', fontsize=15)
-        ax.set_xlabel('Hour (0-23)', fontsize=12)
-        ax.set_ylabel('Average Rental Count', fontsize=12)
-        ax.set_xticks(range(0, 24))
-        ax.grid(axis='y', linestyle='--', alpha=0.7)
-    
-        # Menyoroti beban tertinggi
-        max_hour = peak.loc[peak['cnt_hour'].idxmax(), 'hour']
-        max_val = peak['cnt_hour'].max()
-        ax.annotate(f'Puncak: Jam {int(max_hour)}',
-                     xy=(max_hour, max_val),
-                     xytext=(max_hour+1, max_val+20),
-                     arrowprops=dict(facecolor='black', shrink=0.05))
-       
+        st.subheader("Average Bike Rental per Hour")
         if filtered_df.empty:
             st.warning("Tidak ada data untuk kombinasi filter yang dipilih.")
         else:
-            st.pyplot(fig)
+            peak =(
+                filtered_df.groupby("hour")["cnt_hour"]
+                .mean()
+                .reset_index()
+            )
 
+        fig = px.line(
+            peak,
+            x="hour",
+            y="cnt_hour",
+            markers=True,
+            labels={
+                "hour": "Hour (0–23)",
+                "cnt_hour": "Average Rental Count"
+            }
+        )
+        max_row = peak.loc[peak["cnt_hour"].idxmax()] # highlight peak
+
+        fig.add_annotation(
+            x=max_row["hour"],
+            y=max_row["cnt_hour"],
+            text=f"Puncak: Jam {int(max_row['hour'])}",
+            showarrow=True,
+            arrowhead=2
+        )
+        fig.update_layout(xaxis=dict(dtick=1))
+        st.plotly_chart(fig, use_container_width=True)
+    
+    #Working Day vs Weekend
     with col2:
-        # Karakteristik berdasarkan tipe hari
-        fig, ax = plt.subplots(figsize= (12, 6))
-        sns.lineplot(data=filtered_df, x='hour', y='cnt_hour', hue='workingday_hour', marker='o', errorbar=None)
-       
-        ax.set_title('Hourly Demand: Working Days vs Weekends/Holidays', fontsize=15)
-        ax.set_xlabel('Jam', fontsize=12)
-        ax.set_ylabel('Average Rentals', fontsize=12)
-        ax.set_xticks(range(0, 24))
-        ax.legend(title='Workingday')
-        plt.grid(axis='y', linestyle='--', alpha=0.7)
-       
+        st.subheader("Hourly Demand: Working Days vs Weekends/Holidays")
         if filtered_df.empty:
             st.warning("Tidak ada data untuk kombinasi filter yang dipilih.")
         else:
-            st.pyplot(fig)
+            fig = px.line(
+                filtered_df,
+                x="hour",
+                y="cnt_hour",
+                color="workingday_hour",
+                markers=True,
+                labels={
+                    "hour": "Hour",
+                    "cnt_hour": "Average Rentals",
+                    "workingday_hour": "Working Day"
+                }
+            )
+            fig.update_layout(xaxis=dict(dtick=1))
+            st.plotly_chart(fig, use_container_width=True)
 
 # Operational Insight
 with tab5:
     st.subheader("✅ Optimal Period for Maximizing Operations")
-   
-    fig, axes = plt.subplots(2, 1, figsize=(15, 12))
-    hourly_pattern = filtered_df.groupby(['hour', 'workingday_hour'])['cnt_hour'].mean().reset_index()
+    col1, col2 = st.columns(2, border=True)
+    with col1:
+        st.subheader("Average Bike Rental by Hour (Working Days vs Weekends)")
+        if filtered_df.empty:
+            st.warning("Tidak ada data untuk kombinasi filter yang dipilih.")
+        else:
+            hourly_pattern =(
+                filtered_df.groupby(['hour', 'workingday_hour'])['cnt_hour']
+                .mean()
+                .reset_index()
+            )
+            fig = px.line(
+                hourly_pattern, 
+                x='hour', 
+                y='cnt_hour', 
+                color='workingday_hour',
+                markers=True,
+                labels={'hour': 'Hour (0-23)', 'cnt_hour': 'Average Rental Count', 'workingday_hour': 'Day Type'}
+            )
+            fig.update_layout(xaxis=dict(tickmode='linear', tick0=0, dtick=1))
+            st.plotly_chart(fig, use_container_width=True)
 
-    #Pola Penggunaan Berdasarkan Jam dan Hari Kerja
-    sns.lineplot(data=hourly_pattern, x='hour', y='cnt_hour', hue='workingday_hour', marker='o', ax=axes[0])
-    axes[0].set_title('Average Bike Rental by Hour (Working Days vs Weekends)', fontsize=14)
-    axes[0].set_xlabel('Hour (0-23)')
-    axes[0].set_ylabel('Average Rental Count')
-    axes[0].legend(['Weekends/Holidays', 'Working Days'])
-    axes[0].set_xticks(range(0, 24))
-    axes[0].grid(True, linestyle='--', alpha=0.7)
-
-    # Pengaruh Kondisi Cuaca dan Suhu
-    # Menggunakan scatter plot untuk melihat hubungan suhu (temp_norm), jumlah peminjaman (cnt), dan cuaca
-    sns.scatterplot(data=filtered_df, x='temp_norm_hour', y='cnt_hour', hue='weather_situation_hour', alpha=0.4, ax=axes[1])
-    axes[1].set_title('Impact of Temperature and Weather Conditions on Rental Demand', fontsize=14)
-    axes[1].set_xlabel('Normalized Temperature (Temp)')
-    axes[1].set_ylabel('Rental Count')
-    axes[1].legend(title='Weather Conditions')
-
-    plt.tight_layout()
-
-    if filtered_df.empty:
-        st.warning("Tidak ada data untuk kombinasi filter yang dipilih.")
-    else:
-        st.pyplot(fig)
+    #Pengaruh Kondisi Cuaca dan Suhu
+    with col2:
+        st.subheader("Impact of Weather and Temperature on Rental Demand")
+        fig = px.scatter(
+            filtered_df, 
+            x='temp_norm_hour', 
+            y='cnt_hour', 
+            color='weather_situation_hour',
+            opacity=0.5,
+            labels={'temp_norm_hour': 'Normalized Temperature (Temp)', 'cnt_hour': 'Rental Count', 'weather_situation_hour': 'Weather'}
+        )
+        st.plotly_chart(fig, use_container_width=True)
