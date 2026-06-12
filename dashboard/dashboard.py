@@ -287,6 +287,7 @@ with tab2:
    
     # Date Vs Workingday
     with st.container(border=True):
+        st.subheader("Rental Patterns: Hour vs Working Day")
         hourly_pattern = (
             filtered_df.groupby(['hour', 'workingday_hour'])['cnt_hour']
             .mean()
@@ -300,7 +301,6 @@ with tab2:
             markers=True
         )
         fig.update_layout(
-            title='Rental Patterns: Hour vs Working Day',
             xaxis_title='Hour',
             yaxis_title='Average Rental Count'
         )
@@ -314,6 +314,7 @@ with tab2:
     col1, col2, col3 = st.columns(3, border=True)
     #Monthly Rental Trends   
     with col1:
+       st.subheader("Monthly Rental Trends")
        monthly_trend =(
            filtered_df.groupby('month_day')['cnt_day']
            .mean()
@@ -323,8 +324,7 @@ with tab2:
             monthly_trend,
             x='month_day',
             y='cnt_day',
-            markers=True,
-            title='Monthly Rental Trends'
+            markers=True
         )
        fig.update_layout(
             xaxis_title='Month',
@@ -334,6 +334,7 @@ with tab2:
             
     # Rental Patterns by Day of the Week
     with col2:
+        st.subheader("Rental Patterns by Day of the Week")
         weekday_trend = (
             filtered_df.groupby('weekday_hour')['cnt_hour']
             .mean()
@@ -343,8 +344,7 @@ with tab2:
             weekday_trend,
             x='weekday_hour',
             y='cnt_hour',
-            color='cnt_hour',
-            title='Rental Patterns by Day of the Week'
+            color='cnt_hour'
         )
         fig.update_layout(
             xaxis_title='Day',
@@ -354,6 +354,7 @@ with tab2:
            
     #Rental Patterns by Season
     with col3:
+        st.subheader("Rental Patterns by Season & Holiday")
         season_trend = (
             filtered_df.groupby(['season_hour', 'holiday_hour'])['cnt_hour']
             .mean()
@@ -364,8 +365,7 @@ with tab2:
             x='season_hour',
             y='cnt_hour',
             color='holiday_hour',
-            barmode='group',
-            title='Rental Patterns by Season & Holiday'
+            barmode='group'
         )
         fig.update_layout(
             xaxis_title='Season',
@@ -379,6 +379,7 @@ with tab2:
 
     col1, col2 = st.columns(2, border=True)
     with col1:
+        st.subheader("Total Bike Rental Comparison (2011 vs 2012)")
         yearly =(
             filtered_df.groupby('year_day')['cnt_day']
             .sum()
@@ -388,8 +389,7 @@ with tab2:
             yearly,
             x='year_day',
             y='cnt_day',
-            text='cnt_day',
-            title='Total Bike Rental Comparison (2011 vs 2012)'
+            text='cnt_day'
         )
         fig.update_traces(
             texttemplate='%{text:,.0f}',
@@ -404,6 +404,7 @@ with tab2:
    
     #Tren bulanan
     with col2:
+        st.subheader("Monthly Rental Trends (2011 vs 2012)")
         monthly_trend = (
             filtered_df.groupby(['numeric_month', 'year_day'])['cnt_day']
             .sum()
@@ -414,8 +415,7 @@ with tab2:
             x='numeric_month',
             y='cnt_day',
             color='year_day',
-            markers=True,
-            title='Monthly Rental Trends (2011 vs 2012)'
+            markers=True
         )
         fig.update_layout(
             xaxis_title='Month',
@@ -432,16 +432,45 @@ with tab2:
 # Weather Conditions Analysis
 with tab3:
     st.subheader("🌦️ Impact of Weather Conditions on Rentals")
-
-    fig, ax = plt.subplots(figsize= (12, 6))
-    sns.scatterplot(data=filtered_df, x='temp_norm_hour', y='cnt_hour', hue='weather_situation_hour', ax=ax)
-    ax.set_xlabel("Temperature")
-    ax.set_ylabel("Total Rentals")
-   
-    if filtered_df.empty:
-        st.warning("Tidak ada data untuk kombinasi filter yang dipilih.")
-    else:
-        st.pyplot(fig)
+    
+    col1, col2 = st.columns(2, border=True)
+    with col1:
+        st.subheader("Temperature vs Rentals")
+        if filtered_df.empty:
+            st.warning("Tidak ada data untuk kombinasi filter yang dipilih.")
+        else:
+            fig = px.scatter(
+                filtered_df,
+                x="temp_norm_hour",
+                y="cnt_hour",
+                color="weather_situation_hour",
+                labels={
+                    "temp_norm_hour": "Temperature",
+                    "cnt_hour": "Total Rentals",
+                    "weather_situation_hour": "Weather"
+                }
+            )
+            st.plotly_chart(fig, use_container_width=True)
+            
+    #Average Rentals by Weather Condition
+    with col2:
+        st.subheader("Average Rentals by Weather Condition")
+        weather_avg =(
+            filtered_df.groupby("weather_situation_hour")["cnt_hour"]
+            .mean()
+            .reset_index()
+        )
+        fig2 = px.bar(
+            weather_avg,
+            x="weather_situation_hour",
+            y="cnt_hour",
+            text="cnt_hour",
+            labels={
+                "weather_situation_hour": "Weather Condition",
+                "cnt_hour": "Average Rentals"
+            }
+        )
+        st.plotly_chart(fig2, use_container_width=True)
 
 # Peak Demand Hours
 with tab4:
@@ -520,4 +549,3 @@ with tab5:
         st.warning("Tidak ada data untuk kombinasi filter yang dipilih.")
     else:
         st.pyplot(fig)
-        
