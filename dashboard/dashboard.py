@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import plotly.express as px
+import plotly.express as px # type: ignore
 
 # SET CONFIG
 st.set_page_config(page_title="Bike Sharing Analysis Dashboard", layout="wide")
@@ -285,129 +285,144 @@ with tab1:
 with tab2:
     st.subheader("📅 Rental Patterns by Time and Day Type")
    
-    col1, col2 = st.columns(2)
+    col1, col2, col3, col4 = st.columns(4, border=True)
 
     # Date Vs Workingday
     with col1:
-        fig1, ax1 = plt.subplots(figsize=(6, 4))
-       
-        sns.pointplot(
-            data=filtered_df,
+        hourly_pattern = (
+            filtered_df.groupby(['hour', 'workingday_hour'])['cnt_hour']
+            .mean()
+            .reset_index()
+        )
+        fig = px.line(
+            hourly_pattern,
             x='hour',
             y='cnt_hour',
-            hue='workingday_hour',
-            ax=ax1
-         )
-        
-        ax1.set_title(
-         'Rental Patterns: Hour vs Working Day (1=Workingday, 0=Weekend/Libur)',
-         fontsize=11
-         )
-        ax1.set_xlabel('Time (0–23)')
-        ax1.set_ylabel('Average Rental Count')
-       
-        st.pyplot(fig1)
+            color='workingday_hour',
+            markers=True
+        )
+        fig.update_layout(
+            title='Rental Patterns: Hour vs Working Day',
+            xaxis_title='Hour',
+            yaxis_title='Average Rental Count'
+        )
+        st.plotly_chart(fig, use_container_width=True)
    
     #Monthly Rental Trends   
-    with col1:
-       fig3, ax3 = plt.subplots(figsize=(6, 4))
-      
-       sns.boxplot(
-           data=filtered_df,
-           x='month_hour',
-           y='cnt_hour',
-           ax=ax3
-           )
-
-       ax3.set_title(
-           'Monthly Rental Trends',
-           fontsize=11
+    with col2:
+       monthly_trend =(
+           filtered_df.groupby('month_day')['cnt_day']
+           .mean()
+           .reset_index()
+       )
+       fig = px.line(
+            monthly_trend,
+            x='month_day',
+            y='cnt_day',
+            markers=True,
+            title='Monthly Rental Trends'
         )
-       ax3.set_xlabel('Month')
-       ax3.set_ylabel('Rental Count')
-       
-       st.pyplot(fig3)
+       fig.update_layout(
+            xaxis_title='Month',
+            yaxis_title='Average Rental Count'
+        )
+       st.plotly_chart(fig, use_container_width=True)
             
     # Rental Patterns by Day of the Week
-    with col2:
-        fig2, ax2 = plt.subplots(figsize=(6, 4))
-       
-        sns.barplot(
-            data=filtered_df,
+    with col3:
+        weekday_trend = (
+            filtered_df.groupby('weekday_hour')['cnt_hour']
+            .mean()
+            .reset_index()
+        )
+        fig = px.bar(
+            weekday_trend,
             x='weekday_hour',
             y='cnt_hour',
-            ax=ax2
+            title='Rental Patterns by Day of the Week'
         )
-         
-        ax2.set_title(
-            'Rental Patterns by Day of the Week',
-            fontsize=11
+        fig.update_layout(
+            xaxis_title='Day',
+            yaxis_title='Average Rental Count'
         )
-        ax2.set_xlabel('Day (0=Sunday, 6=Saturday)')
-        ax2.set_ylabel('Average Rental Count')
-        
-        st.pyplot(fig2)
+        st.plotly_chart(fig, use_container_width=True)
            
     #Rental Patterns by Season
-    with col2:
-        fig4, ax4 = plt.subplots(figsize=(6, 4))
-       
-        sns.barplot(
-            data=filtered_df,
+    with col4:
+        season_trend = (
+            filtered_df.groupby(['season_hour', 'holiday_hour'])['cnt_hour']
+            .mean()
+            .reset_index()
+        )
+        fig = px.bar(
+            season_trend,
             x='season_hour',
             y='cnt_hour',
-            hue='holiday_hour',
-            ax=ax4
+            color='holiday_hour',
+            barmode='group',
+            title='Rental Patterns by Season & Holiday'
         )
-       
-        ax4.set_title(
-             'Rental Patterns by Season & Holiday',
-            fontsize=11
+        fig.update_layout(
+            xaxis_title='Season',
+            yaxis_title='Average Rental Count',
+            legend_title='Holiday'
         )
-        ax4.set_xlabel('Season (1:Spring, 2:Summer, 3:Fall, 4:Winter)')
-        ax4.set_ylabel('Average Rental Count')
-        
-        st.pyplot(fig4)
+        st.plotly_chart(fig, use_container_width=True)
 
     # TREN 2011 vs 2012
     st.subheader("📈 Rental Trends: 2011 vs 2012")
 
-    yearly = filtered_df.groupby('year_day')['cnt_day'].sum().reset_index()
-
-    fig, ax = plt.subplots(figsize= (12, 6))
-    sns.barplot(data=yearly, x='year_day', y='cnt_day', hue='year_day', legend=False)
-
-    # Menambahkan judul dan label
-    ax.set_title('Total Bike Rental Comparison (2011 vs 2012)', fontsize=15)
-    ax.set_xlabel('Year', fontsize=12)
-    ax.set_ylabel('Total Rental Count', fontsize=12)
-
-    # Menambahkan angka total di atas bar
-    for index, row in yearly.iterrows():
-        plt.text(index, row.cnt_day, f'{row.cnt_day:,}', color='black', ha="center", va="bottom")
-
-    if filtered_df.empty:
-        st.warning("Tidak ada data untuk kombinasi filter yang dipilih.")
-    else:
-        st.pyplot(fig)
+    col1, col2 = st.columns(2, border=True)
+    with col1:
+        yearly =(
+            filtered_df.groupby('year_day')['cnt_day']
+            .sum()
+            .reset_index()
+        )
+        fig = px.bar(
+            yearly,
+            x='year_day',
+            y='cnt_day',
+            text='cnt_day',
+            title='Total Bike Rental Comparison (2011 vs 2012)'
+        )
+        fig.update_traces(
+            texttemplate='%{text:,.0f}',
+            textposition='outside'
+        )
+        fig.update_layout(
+            xaxis_title='Year',
+            yaxis_title='Total Rental Count',
+            showlegend=False
+        )
+        st.plotly_chart(fig, use_container_width=True)
    
-    # Melihat tren bulanan untuk melihat perubahan lebih detail
-    df['numeric_month'] = filtered_df['dteday'].dt.month # mengambil nilai bulan dari kolom tanggal
-
-    # Visualisasi tren bulanan
-    fig, ax = plt.subplots(figsize=(12, 6))
-    sns.lineplot(data=filtered_df, x='numeric_month', y='cnt_day', hue='year_day', marker='o', estimator=sum)
-
-    ax.set_title('Monthly Rental Trends (2011 vs 2012)', fontsize=15)
-    ax.set_xlabel('Month (1-12)', fontsize=12)
-    ax.set_ylabel('Total Rentals', fontsize=12)
-    ax.set_xticks(range(1, 13))
-    ax.grid(True, linestyle='--', alpha=0.7)
-    ax.legend(title='Year')
-    
-    st.pyplot(fig)
+    #Tren bulanan
+    with col2:
+        monthly_trend = (
+            filtered_df.groupby(['numeric_month', 'year_day'])['cnt_day']
+            .sum()
+            .reset_index()
+        )
+        fig = px.line(
+            monthly_trend,
+            x='numeric_month',
+            y='cnt_day',
+            color='year_day',
+            markers=True,
+            title='Monthly Rental Trends (2011 vs 2012)'
+        )
+        fig.update_layout(
+            xaxis_title='Month',
+            yaxis_title='Total Rentals',
+            xaxis=dict(
+                tickmode='array',
+                tickvals=list(range(1, 13))
+            ),
+            legend_title='Year'
+        )
+        st.plotly_chart(fig, use_container_width=True)
    
-
 
 # Weather Conditions Analysis
 with tab3:
