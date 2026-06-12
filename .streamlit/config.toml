@@ -1,0 +1,7 @@
+[theme]
+base="system"
+backgroundColor="ghostWhite"
+secondaryBackgroundColour="powderBlue"
+textColor="black"
+baseRadius="full"
+borderColor="mediumSlateBlue"
