@@ -204,15 +204,23 @@ with tab1:
                 y=-0.15,              # posisi di bawah chart
                 x=0.5,
                 xanchor="center"
-            )
+            ),
+            annotations=dict(
+                text="Users",
+                x=0.5,
+                y=0.5,
+                font_size=18,
+                showarrow=False
+            )       
         )
+
         st.plotly_chart(fig, use_container_width=True)
         
 
     col1, col2, col3 = st.columns(3, border=True)
     #TEMPERATURE IMPACT
     with col1:
-        st.subheader("Impact of Temperature on Daily Rentals")
+        st.subheader("Temperature vs. Rental Trends")
         fig = px.scatter(
             filtered_df,
             x='temp_norm_day',
@@ -229,6 +237,7 @@ with tab1:
         
     #WEATHER IMPACT
     with col2:
+        st.subheader("Weather Situation Distribution")
         weather_dist = (
             filtered_df['weather_situation_day']
             .value_counts()
@@ -240,8 +249,15 @@ with tab1:
         fig = px.pie(
             weather_dist,
             names='weather_situation_day',
-            values='count',
-            title='Weather Situation Distribution'
+            values='count'
+        )
+        fig.update_layout(
+            legend=dict(
+                orientation="h",      # horizontal
+                y=-0.15,              # posisi di bawah chart
+                x=0.5,
+                xanchor="center"
+                )
         )
 
         st.plotly_chart(fig, use_container_width=True)
