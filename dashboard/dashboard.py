@@ -217,11 +217,10 @@ with tab1:
             x='temp_norm_day',
             y='cnt_day',
             color='season',
-            opacicty=0,5,
+            opacity=0,5,
             x_label='Normalized Temperature',
             y_label='Total Daily Rentals'
         )
-        
         st.plotly_chart(fig, use_container_width=True)
         
     #WEATHER IMPACT
