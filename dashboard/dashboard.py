@@ -285,10 +285,8 @@ with tab1:
 with tab2:
     st.subheader("📅 Rental Patterns by Time and Day Type")
    
-    col1, col2, col3, col4 = st.columns(4, border=True)
-
     # Date Vs Workingday
-    with col1:
+    with st.container(border=True):
         hourly_pattern = (
             filtered_df.groupby(['hour', 'workingday_hour'])['cnt_hour']
             .mean()
@@ -308,8 +306,9 @@ with tab2:
         )
         st.plotly_chart(fig, use_container_width=True)
    
+    col1, col2, col3 = st.columns(3, border=True)
     #Monthly Rental Trends   
-    with col2:
+    with col1:
        monthly_trend =(
            filtered_df.groupby('month_day')['cnt_day']
            .mean()
@@ -329,7 +328,7 @@ with tab2:
        st.plotly_chart(fig, use_container_width=True)
             
     # Rental Patterns by Day of the Week
-    with col3:
+    with col2:
         weekday_trend = (
             filtered_df.groupby('weekday_hour')['cnt_hour']
             .mean()
@@ -348,7 +347,7 @@ with tab2:
         st.plotly_chart(fig, use_container_width=True)
            
     #Rental Patterns by Season
-    with col4:
+    with col3:
         season_trend = (
             filtered_df.groupby(['season_hour', 'holiday_hour'])['cnt_hour']
             .mean()
@@ -515,3 +514,4 @@ with tab5:
         st.warning("Tidak ada data untuk kombinasi filter yang dipilih.")
     else:
         st.pyplot(fig)
+        
