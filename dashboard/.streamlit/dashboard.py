@@ -115,10 +115,17 @@ with tab1:
             int(filtered_df['cnt_hour'].mean() if not pd.isna(filtered_df['cnt_hour'].mean()) else 0)
         )
     with col3:
-        busiest_day = filtered_df.groupby('weekday_day')['cnt_day'].sum().idxmax()
+        if not filtered_df.empty:
+            busiest_day = filtered_df.groupby('weekday_day')['cnt_day'].sum().idxmax()
+            busiest_day_value = filtered_df.groupby('weekday_day')['cnt_day'].sum().max()
+        else:
+            busiest_day = "No Data"
+            busiest_day_value = 0
+            
         st.metric(
-            "Busiest Day",
-            busiest_day
+            label="Busiest Day", 
+            value=str(busiest_day), 
+            delta=f"{busiest_day_value:,} total rides" if busiest_day_value > 0 else None
         )
     with col4:
         peak_hour = filtered_df.groupby('hour')['cnt_hour'].mean().idxmax() 
