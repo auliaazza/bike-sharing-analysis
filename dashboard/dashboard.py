@@ -217,7 +217,7 @@ with tab1:
         st.plotly_chart(fig, use_container_width=True)
         
 
-    col1, col2, col3 = st.columns(3, border=True)
+    col1, col2, col3 = st.columns([1, 1, 1], border=True)
     #TEMPERATURE IMPACT
     with col1:
         st.subheader("Temperature vs. Rental Trends")
