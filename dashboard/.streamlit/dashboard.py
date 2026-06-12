@@ -106,6 +106,7 @@ with tab1:
     col1, col2, col3, col4, col5 = st.columns(5)
     cols = st.columns(5, border=True)
     with col1:
+        cols.markdown("### Total Rentals")
         st.metric(
             "Total Rentals",
             f"{filtered_df['cnt_day'].sum():,}"
