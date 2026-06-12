@@ -221,7 +221,7 @@ with tab1:
            labels={
                'temp_norm_day': 'Normalized Temperature',
                'cnt_day': 'Total Daily Rentals',
-               'season': 'Season'
+               'season': 'Season'}
                )
         st.plotly_chart(fig, use_container_width=True)
         
