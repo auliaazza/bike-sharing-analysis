@@ -277,7 +277,8 @@ with tab1:
     st.bar_chart(
         data=hourly_pivot,
         x_label="Hour of the Day",
-        y_label="Average Rentals"
+        y_label="Average Rentals",
+        border=True
     )
         
 
