@@ -107,7 +107,7 @@ with tab1:
     with col1:
         st.metric(
             "Total Rentals",
-            f"{df['cnt_day'].sum():,}"
+            f"{filtered_df['cnt_day'].sum():,}"
         )
     with col2:
         st.metric(
