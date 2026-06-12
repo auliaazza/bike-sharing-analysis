@@ -156,7 +156,7 @@ with tab1:
         )
 
     
-    col1, col2 = st.columns([3, 1])
+    col1, col2 = st.columns([3, 1], border=True)
     # DAILY TREND
     with col1:
         filtered_df['dteday'] = pd.to_datetime(filtered_df['dteday'])
@@ -173,15 +173,38 @@ with tab1:
         
     # HOURLY USAGE BY DAY TYPE
     with col2:
-        hourly_trend = filtered_df.groupby(['hour', 'workingday_hour'])['cnt_hour'].mean().reset_index()
-        hourly_pivot = hourly_trend.pivot(index='hour', columns='workingday_hour', values='cnt_hour')
+        st.subheader("User Type Comparison")
+        
+        total_casual = filtered_df['casual_day'].sum()
+        total_registered = filtered_df['registered_day'].sum()
+        
+        if total_casual == 0 and total_registered == 0:
+            st.warning("Tidak ada data untuk kombinasi filter ini.")
+        else:
+            labels = ['Casual Users', 'Registered Users']
+            sizes = [total_casual, total_registered]
+            colors = ['#b0bec5', '#1d2a62']
 
-        st.subheader("Hourly Usage Trends by Day Type")
-        st.bar_chart(
-                data=hourly_pivot,
-                x_label="Hour of the Day",
-                y_label="Average Rentals"
-            )
+        fig, ax = plt.subplots(figsize=(3, 6))
+        
+        wedges, texts, autotexts = ax.pie(
+            sizes, 
+            labels=labels, 
+            colors=colors, 
+            autopct='%1.1f%%', 
+            startangle=90,     
+            textprops=dict(color="black", fontsize=10)
+        )
+        
+        for autotext in autotexts:
+            autotext.set_color('white') 
+            autotext.set_weight('bold')
+            
+        ax.axis('equal')  
+        plt.tight_layout()
+        
+        st.pyplot(fig)
+        
     
     col1, col2, col3 = st.columns(3)
     #TEMPERATURE IMPACT
@@ -208,36 +231,15 @@ with tab1:
         )
     #USER TYPE
     with col3:
-        st.subheader("User Type Comparison (Casual vs Registered)")
-        
-        total_casual = df['casual_day'].sum()
-        total_registered = df['registered_day'].sum()
-        
-        labels = ['Casual Users', 'Registered Users']
-        sizes = [total_casual, total_registered]
-        colors = ['#b0bec5', '#1d2a62']
-        
-        fig, ax = plt.subplots(figsize=(3, 3))
-        wedges, texts, autotexts = ax.pie(
-            sizes, 
-            labels=labels, 
-            colors=colors, 
-            autopct='%1.1f%%', # Menampilkan persentase dengan 1 angka di belakang koma
-            startangle=90,     # Memutar grafik agar tegak lurus dari atas
-            textprops=dict(color="black", fontsize=11) # Warna teks label
-        )
-        
-        for autotext in autotexts:
-            autotext.set_color('white') # Mengubah teks persen menjadi putih agar kontras
-            autotext.set_weight('bold')
-            
-        centre_circle = plt.Circle((0, 0), 0.50, fc='white')
-        fig.gca().add_artist(centre_circle)
-        
-        ax.axis('equal')
-        plt.tight_layout()
-        
-        st.pyplot(fig)
+        hourly_trend = filtered_df.groupby(['hour', 'workingday_hour'])['cnt_hour'].mean().reset_index()
+        hourly_pivot = hourly_trend.pivot(index='hour', columns='workingday_hour', values='cnt_hour')
+
+        st.subheader("Hourly Usage Trends by Day Type")
+        st.bar_chart(
+                data=hourly_pivot,
+                x_label="Hour of the Day",
+                y_label="Average Rentals"
+            )
 
 # USAGE PATTERN ANALYSIS
 with tab2:
