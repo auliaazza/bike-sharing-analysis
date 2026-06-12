@@ -5,3 +5,7 @@ secondaryBackgroundColour="powderBlue"
 textColor="black"
 baseRadius="full"
 borderColor="mediumSlateBlue"
+
+[theme.sidebar]
+backgroundColor="ghostWhite"
+secondaryBackgroundColor="lavender"
