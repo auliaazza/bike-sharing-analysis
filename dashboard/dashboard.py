@@ -177,35 +177,36 @@ with tab1:
     with col2:
         st.subheader("User Type Comparison")
         
-        total_casual = filtered_df['casual_day'].sum()
-        total_registered = filtered_df['registered_day'].sum()
-        
-        if total_casual == 0 and total_registered == 0:
-            st.warning("Tidak ada data untuk kombinasi filter ini.")
-        else:
-            labels = ['Casual Users', 'Registered Users']
-            sizes = [total_casual, total_registered]
-            colors = ['#90CAF9', '#2196F3']
-
-        fig, ax = plt.subplots(figsize=(6, 6))
-        
-        wedges, texts, autotexts = ax.pie(
-            sizes, 
-            labels=labels, 
-            colors=colors, 
-            autopct='%1.1f%%', 
-            startangle=90,     
-            textprops=dict(color="black", fontsize=18)
+        user_df = pd.DataFrame({
+            "User Type": ["Casual Users", "Registered Users"],
+            "Count": [
+                filtered_df["casual_day"].sum(),
+                filtered_df["registered_day"].sum()
+                ]
+            })
+        fig = px.pie(
+            user_df,
+            names="User Type",
+            values="Count",
+            title="User Type Comparison"
         )
-        
-        for autotext in autotexts:
-            autotext.set_color('white') 
-            autotext.set_weight('bold')
-            
-        ax.axis('equal')  
-        plt.tight_layout()
-        
-        st.pyplot(fig)
+
+        fig.update_traces(
+            textinfo="percent",
+            textfont_size=16
+        )
+
+        fig.update_layout(
+            height=400,
+            legend=dict(
+                orientation="h",
+                y=-0.15,
+                x=0.5,
+                xanchor="center"
+            )
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
         
     
     col1, col2, col3 = st.columns(3)
