@@ -97,7 +97,7 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
     "Weather Conditions Analysis",
     "Peak Demand Hours",
     "Operational Insight"
-])
+], border=True)
 
 # TAB 1 (OVERVIEW)
 with tab1:
