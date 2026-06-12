@@ -304,6 +304,11 @@ with tab2:
             xaxis_title='Hour',
             yaxis_title='Average Rental Count'
         )
+        fig.update_xaxes(
+            tickmode='linear',
+            tick0=0,
+            dtick=1
+        )
         st.plotly_chart(fig, use_container_width=True)
    
     col1, col2, col3 = st.columns(3, border=True)
