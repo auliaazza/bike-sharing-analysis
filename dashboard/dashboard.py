@@ -13,7 +13,7 @@ st.markdown(
     <style>
     /* Mengubah warna latar belakang utama */
     .stApp {
-        background-color: #FFFFFF;
+        background-color: #00000;
     }
     /* Mengubah warna teks global */
     html, body, [class*="css"]  {
