@@ -104,11 +104,13 @@ with tab1:
     st.subheader("📌 Bike Sharing Usage Overview")
 
     col1, col2, col3, col4, col5 = st.columns(5, border=True)
+    [theme.columns]
+    backgrounColor="lavender"
     with col1:
         st.metric(
             "Total Rentals",
             f"{filtered_df['cnt_day'].sum():,}"
-        )
+        )        
     with col2:
         st.metric(
             "Average Rentals per Hour",
