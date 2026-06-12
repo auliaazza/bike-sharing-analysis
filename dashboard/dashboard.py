@@ -213,10 +213,10 @@ with tab1:
     with col1:
         st.subheader("Impact of Temperature on Daily Rentals")
         fig = px.scatter(
-            df,
+            filtered_df,
             x='temp_norm_day',
             y='cnt_day',
-            color='season',
+            color='season_hour',
             opacity=0.5
         )
         fig.update_layout(
