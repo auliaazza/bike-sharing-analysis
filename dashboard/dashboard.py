@@ -221,7 +221,9 @@ with tab1:
             x_label='Normalized Temperature',
             y_label='Total Daily Rentals'
         )
+        
         st.plotly_chart(fig, use_container_width=True)
+        
     #WEATHER IMPACT
     with col2:
         weather_trend = df.groupby('weather_situation_day')['cnt_day'].mean().reset_index()
