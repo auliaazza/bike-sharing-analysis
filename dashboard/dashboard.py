@@ -173,7 +173,7 @@ with tab1:
             color=["#42A5F5"]
             )
         
-    # HOURLY USAGE BY DAY TYPE
+    #USER TYPE
     with col2:
         st.subheader("User Type Comparison")
         
@@ -184,12 +184,14 @@ with tab1:
                 filtered_df["registered_day"].sum()
                 ]
             })
+        
         fig = px.pie(
             user_df,
             names="User Type",
             values="Count",
+            hole=0.5,  # donut chart
             title="User Type Comparison"
-        )
+            )
 
         fig.update_traces(
             textinfo="percent",
@@ -197,19 +199,21 @@ with tab1:
         )
 
         fig.update_layout(
-            height=400,
-            legend=dict(
-                orientation="h",
-                y=-0.15,
-                x=0.5,
-                xanchor="center"
-            )
+            annotations=[
+                dict(
+                    text="Users",
+                    x=0.5,
+                    y=0.5,
+                    font_size=18,
+                    showarrow=False
+                )
+            ]
         )
 
         st.plotly_chart(fig, use_container_width=True)
         
-    
-    col1, col2, col3 = st.columns(3)
+
+    col1, col2, col3 = st.columns(3, border=True)
     #TEMPERATURE IMPACT
     with col1:
         st.subheader("Impact of Temperature on Daily Rentals")
@@ -229,16 +233,24 @@ with tab1:
         
     #WEATHER IMPACT
     with col2:
-        weather_trend = df.groupby('weather_situation_day')['cnt_day'].mean().reset_index()
-        st.subheader("Rides by Weather Situation")
-        st.bar_chart(
-            data=weather_trend,
-            x='weather_situation_day',
-            y='cnt_day',
-            x_label='Weather Situation',
-            y_label='Average Daily Rentals'
+        weather_dist = (
+            filtered_df['weather_situation_day']
+            .value_counts()
+            .reset_index()
         )
-    #USER TYPE
+        
+        weather_dist.columns = ['weather_situation_day', 'count']
+
+        fig = px.pie(
+            weather_dist,
+            names='weather_situation_day',
+            values='count',
+            title='Weather Situation Distribution'
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
+    
+    # HOURLY USAGE BY DAY TYPE
     with col3:
         hourly_trend = filtered_df.groupby(['hour', 'workingday_hour'])['cnt_hour'].mean().reset_index()
         hourly_pivot = hourly_trend.pivot(index='hour', columns='workingday_hour', values='cnt_hour')
