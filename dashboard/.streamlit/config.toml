@@ -5,8 +5,8 @@ secondaryBackgroundColor="powderBlue"
 codeBackgroundColor="powderBlue"
 
 [theme.sidebar]
-backgroundColor="#babyBlue"
-secondaryBackgroundColor="#90CAF9"
+backgroundColor="#42A5F5"
+secondaryBackgroundColor="#42A5F5"
 baseRadius=0.5
 borderColor="#64B5F6"
 showWidgetBorder=true
