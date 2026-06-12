@@ -112,23 +112,23 @@ with tab1:
     with col2:
         st.metric(
             "Average Rentals per Hour",
-            int(df['cnt_hour'].mean())
+            int(filtered_df['cnt_hour'].mean())
         )
     with col3:
-        busiest_day = df.groupby('weekday_day')['cnt_day'].sum().idxmax()
+        busiest_day = filtered_df.groupby('weekday_day')['cnt_day'].sum().idxmax()
         st.metric(
             "Busiest Day",
             busiest_day
         )
     with col4:
-        peak_hour = df.groupby('hour')['cnt_hour'].mean().idxmax() 
+        peak_hour = filtered_df.groupby('hour')['cnt_hour'].mean().idxmax() 
         st.metric(
             "Peak Hours",
             f"{peak_hour}:00"
         )
     with col5:
-        total = df['cnt_day'].sum()
-        registered = df['registered_day'].sum()
+        total = filtered_df['cnt_day'].sum()
+        registered = filtered_df['registered_day'].sum()
         registered_ratio = (registered / total) * 100
     
         st.metric(
@@ -140,8 +140,8 @@ with tab1:
     col1, col2 = st.columns(2)
     # DAILY TREND
     with col1:
-        df['dteday'] = pd.to_datetime(df['dteday'])
-        daily_trend = df.groupby('dteday')['cnt_day'].sum().reset_index()
+        filtered_df['dteday'] = pd.to_datetime(filtered_df['dteday'])
+        daily_trend = filtered_df.groupby('dteday')['cnt_day'].sum().reset_index()
         
         st.subheader("Daily Rides Trends")
         st.line_chart(
@@ -153,7 +153,7 @@ with tab1:
             )
     # HOURLY USAGE BY DAY TYPE
     with col2:
-        hourly_trend = df.groupby(['hour', 'workingday_hour'])['cnt_hour'].mean().reset_index()
+        hourly_trend = filtered_df.groupby(['hour', 'workingday_hour'])['cnt_hour'].mean().reset_index()
         hourly_pivot = hourly_trend.pivot(index='hour', columns='workingday_hour', values='cnt_hour')
 
         st.subheader("Hourly Usage Trends by Day Type")
