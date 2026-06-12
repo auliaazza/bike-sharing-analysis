@@ -109,15 +109,6 @@ with tab1:
         st.metric(
             "Total Rentals",
             f"{filtered_df['cnt_day'].sum():,}"
-        )
-        st.markdown(
-            f"""
-            <div style="text-align:center;">
-            <h4>Total Rentals</h4>
-            <h2>{total_rentals:,}</h2>
-            </div>
-            """,
-            unsafe_allow_html=True
         )      
     with col2:
         st.metric(
