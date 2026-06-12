@@ -218,21 +218,21 @@ with tab1:
         st.plotly_chart(fig, use_container_width=True)
         
 
-    col1, col2, col3 = st.columns([1, 1, 2], border=True)
+    col1, col2, col3 = st.columns(3, border=True)
     #TEMPERATURE IMPACT
     with col1:
         st.subheader("Temperature vs. Rental Trends")
         filtered_df['temp_category'] = pd.cut(
             filtered_df['temp_norm_day'],
-            bins=[0, 0.5, 1],
-            labels=['Low Temperature', 'High Temperature']
-            )
+            bins=[0, 0.33, 0.66, 1],
+            labels=['Low', 'Medium', 'High']
+        )
         
         fig = px.scatter(
             filtered_df,
             x='temp_norm_day',
             y='cnt_day',
-            color='temp_norm_day',
+            color='temp_category',
             opacity=0.5
         )
         fig.update_layout(
@@ -500,4 +500,3 @@ with tab5:
         st.warning("Tidak ada data untuk kombinasi filter yang dipilih.")
     else:
         st.pyplot(fig)
-
