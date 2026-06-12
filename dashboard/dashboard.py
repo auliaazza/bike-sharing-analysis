@@ -97,13 +97,13 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
     "Weather Conditions Analysis",
     "Peak Demand Hours",
     "Operational Insight"
-], border=True)
+])
 
 # TAB 1 (OVERVIEW)
 with tab1:
     st.subheader("📌 Bike Sharing Usage Overview")
 
-    col1, col2, col3, col4, col5 = st.columns(5, border=True)
+    col1, col2, col3, col4, col5 = st.columns(5, border=True, theme.secondaryBackgroundColor="lavender")
     with col1:
         st.metric(
             "Total Rentals",
