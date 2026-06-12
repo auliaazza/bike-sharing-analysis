@@ -184,7 +184,7 @@ with tab1:
         else:
             labels = ['Casual Users', 'Registered Users']
             sizes = [total_casual, total_registered]
-            colors = ['#81A4CD', '#DBE4EE']
+            colors = ['#81A4CD', '#3E7CB1']
 
         fig, ax = plt.subplots(figsize=(6, 6))
         
