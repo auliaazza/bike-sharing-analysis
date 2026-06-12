@@ -189,13 +189,12 @@ with tab1:
             user_df,
             names="User Type",
             values="Count",
-            hole=0.5,  # donut chart
-            title="User Type Comparison"
+            hole=0.5  # donut chart
             )
 
         fig.update_traces(
             textinfo="percent",
-            textfont_size=16
+            textfont_size=14
         )
 
         fig.update_layout(
@@ -210,7 +209,7 @@ with tab1:
                 text="Users",
                 x=0.5,
                 y=0.5,
-                font_size=18,
+                font_size=16,
                 showarrow=False
                 )
             ]      
@@ -219,7 +218,7 @@ with tab1:
         st.plotly_chart(fig, use_container_width=True)
         
 
-    col1, col2, col3 = st.columns(3, border=True)
+    col1, col2, col3 = st.columns([1, 1, 2], border=True)
     #TEMPERATURE IMPACT
     with col1:
         st.subheader("Temperature vs. Rental Trends")
@@ -495,4 +494,3 @@ with tab5:
         st.warning("Tidak ada data untuk kombinasi filter yang dipilih.")
     else:
         st.pyplot(fig)
-
