@@ -480,35 +480,35 @@ with tab4:
         st.subheader("Average Bike Rental per Hour")
         if filtered_df.empty:
             st.warning("Tidak ada data untuk kombinasi filter yang dipilih.")
+
         else:
-            peak =(
+            peak = (
                 filtered_df.groupby("hour")["cnt_hour"]
                 .mean()
                 .reset_index()
             )
+            fig = px.line(
+                peak,
+                x="hour",
+                y="cnt_hour",
+                markers=True,
+                labels={
+                    "hour": "Hour (0–23)",
+                    "cnt_hour": "Average Rental Count"
+                }
+            )
+            max_row = peak.loc[peak["cnt_hour"].idxmax()]
 
-        fig = px.line(
-            peak,
-            x="hour",
-            y="cnt_hour",
-            markers=True,
-            labels={
-                "hour": "Hour (0–23)",
-                "cnt_hour": "Average Rental Count"
-            }
-        )
-        max_row = peak.loc[peak["cnt_hour"].idxmax()] # highlight peak
+            fig.add_annotation(
+                x=max_row["hour"],
+                y=max_row["cnt_hour"],
+                text=f"Puncak: Jam {int(max_row['hour'])}",
+                showarrow=True,
+                arrowhead=2
+            )
+            fig.update_layout(xaxis=dict(dtick=1))
+            st.plotly_chart(fig, use_container_width=True)
 
-        fig.add_annotation(
-            x=max_row["hour"],
-            y=max_row["cnt_hour"],
-            text=f"Puncak: Jam {int(max_row['hour'])}",
-            showarrow=True,
-            arrowhead=2
-        )
-        fig.update_layout(xaxis=dict(dtick=1))
-        st.plotly_chart(fig, use_container_width=True)
-    
     #Working Day vs Weekend
     with col2:
         st.subheader("Hourly Demand: Working Days vs Weekends/Holidays")
