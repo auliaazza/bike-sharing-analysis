@@ -103,7 +103,7 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
 with tab1:
     st.subheader("📌 Bike Sharing Usage Overview")
 
-    col1, col2, col3, col4, col5 = st.columns(5, border=True, theme.secondaryBackgroundColor="lavender")
+    col1, col2, col3, col4, col5 = st.columns(5, border=True, theme.secondaryBackgroundColor=="lavender")
     with col1:
         st.metric(
             "Total Rentals",
