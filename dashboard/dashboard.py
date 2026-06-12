@@ -205,13 +205,15 @@ with tab1:
                 x=0.5,
                 xanchor="center"
             ),
-            annotations=dict(
+            annotations=[
+                dict(
                 text="Users",
                 x=0.5,
                 y=0.5,
                 font_size=18,
                 showarrow=False
-            )       
+                )
+            ]      
         )
 
         st.plotly_chart(fig, use_container_width=True)
@@ -493,3 +495,4 @@ with tab5:
         st.warning("Tidak ada data untuk kombinasi filter yang dipilih.")
     else:
         st.pyplot(fig)
+
