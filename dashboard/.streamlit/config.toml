@@ -5,12 +5,12 @@ secondaryBackgroundColor="powderBlue"
 codeBackgroundColor="powderBlue"
 
 [theme.sidebar]
-textColor = "midnightBlue"
-backgroundColor = "lightBlueGrey"
-secondaryBackgroundColor = "babyBlueEyes" 
-primaryColor = "coolCerulean"
+textColor = "#003459"
+backgroundColor = "#EAF4FF"
+secondaryBackgroundColor = "#D6EAFF"
+primaryColor = "#ADD6FF"
 baseRadius = "sm" 
 showSidebarBorder = true
-borderColor = "platinum"
+borderColor = "#84C1FF"
 font = "sans serif"
 
