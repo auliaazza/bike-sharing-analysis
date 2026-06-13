@@ -53,7 +53,7 @@ with col2:
 st.sidebar.subheader("Choose a Season")
 list_season = sorted(df['season_day'].unique())
 
-selected_season_day = st.segmented_control(
+selected_season_day = st.sidebar.segmented_control(
     label="Pilih Season",
     options=["All"] + list(list_season),
     default="All",
