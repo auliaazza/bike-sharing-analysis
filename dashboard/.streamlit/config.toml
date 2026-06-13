@@ -5,7 +5,7 @@ secondaryBackgroundColor="powderBlue"
 codeBackgroundColor="powderBlue"
 
 [theme.sidebar]
-textColor = "#003459"
+textColor = "#001A2C"
 backgroundColor = "#F8FBFF"
 secondaryBackgroundColor = "#D6EAFF"
 primaryColor = "#84C1FF"
