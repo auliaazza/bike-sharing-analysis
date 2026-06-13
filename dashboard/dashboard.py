@@ -26,21 +26,24 @@ st.sidebar.header("Filter Controls")
 
 # 1. Filter Custome Date Range
 st.sidebar.subheader("Select Date Range")
-min_date = df['dteday'].min().date()
-max_date = df['dteday'].max().date()
+min_date = datetime.date(2011, 1, 1)
+max_date = datetime.date(2012, 12, 31)
 
-st.sidebar.markdown("**Custom Date Range**")
-col1, col2 = st.sidebar.columns(2, border=True)
 with col1:
     start_date = st.date_input(
-        label="Start date", 
-        value=None,            # Mengosongkan tanggal awal (seperti placeholder di gambar)
-        format="DD/MM/YYYY"    # Format tanggal Hari/Bulan/Tahun
+        label="Start date",
+        value=min_date,          # Nilai awal langsung di-set ke awal data (1 Jan 2011)
+        min_value=min_date,      # Batas minimum kalender
+        max_value=max_date,      # Batas maksimum kalender
+        format="DD/MM/YYYY"
     )
+
 with col2:
     end_date = st.date_input(
-        label="End date", 
-        value=None,            # Mengosongkan tanggal akhir
+        label="End date",
+        value=max_date,          # Nilai awal langsung di-set ke akhir data (31 Des 2012)
+        min_value=min_date,
+        max_value=max_date,
         format="DD/MM/YYYY"
     )
 
