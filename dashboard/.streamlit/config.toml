@@ -5,9 +5,11 @@ secondaryBackgroundColor="powderBlue"
 codeBackgroundColor="powderBlue"
 
 [theme.sidebar]
-backgroundColor="#42A5F5"
-secondaryBackgroundColor="#42A5F5"
-baseRadius=0.5
-borderColor="#64B5F6"
-showWidgetBorder=true
+textColor = "#31333F"
+backgroundColor = "#F8F9FA"
+secondaryBackgroundColor = "#FFFFFF"
+primaryColor = "#739BBF"
+showSidebarBorder = true
+borderColor = "#D5DAE5"
+font = "sans serif"
 
