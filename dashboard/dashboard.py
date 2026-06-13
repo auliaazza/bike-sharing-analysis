@@ -75,12 +75,6 @@ selected_weather = st.sidebar.radio(
 
 # FILTER DATA (DATA PIPELINE)
 
-# Filter Berdasarkan Tanggal Dengan Tuple (Anti-Error)
-if isinstance(date_range, tuple) and len(date_range) == 2:
-    start_date, end_date = date_range[0], date_range[1]
-else:
-    start_date, end_date = min_date, max_date
-
 filtered_df = df[(df['dteday'].dt.date >= start_date) & (df['dteday'].dt.date <= end_date)]
 
 # Filter Berdasarkan Season
