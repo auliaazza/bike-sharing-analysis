@@ -29,14 +29,20 @@ st.sidebar.subheader("Select Date Range")
 min_date = df['dteday'].min().date()
 max_date = df['dteday'].max().date()
 
-# Menggunakan input rentang tanggal bawaan Streamlit
-date_range = st.sidebar.date_input(
-    label="Date Range",
-    value=(min_date, max_date),
-    min_value=min_date,
-    max_value=max_date,
-    label_visibility="collapsed"
-)
+st.sidebar.markdown("**Custom Date Range**")
+col1, col2 = st.sidebar.columns(2, border=True)
+with col1:
+    start_date = st.date_input(
+        label="Start date", 
+        value=None,            # Mengosongkan tanggal awal (seperti placeholder di gambar)
+        format="DD/MM/YYYY"    # Format tanggal Hari/Bulan/Tahun
+    )
+with col2:
+    end_date = st.date_input(
+        label="End date", 
+        value=None,            # Mengosongkan tanggal akhir
+        format="DD/MM/YYYY"
+    )
 
 # 2. Filter by Season
 st.sidebar.subheader("Choose a Season")
