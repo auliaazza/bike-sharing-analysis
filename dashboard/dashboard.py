@@ -30,6 +30,7 @@ st.sidebar.subheader("Select Date Range")
 min_date = datetime.date(2011, 1, 1)
 max_date = datetime.date(2012, 12, 31)
 
+col1,col2= st.columns (2, border=True)
 with col1:
     start_date = st.date_input(
         label="Start date",
