@@ -6,7 +6,7 @@ codeBackgroundColor="powderBlue"
 
 [theme.sidebar]
 textColor = "#003459"
-backgroundColor = "#EAF4FF"
+backgroundColor = "#F8FBFF"
 secondaryBackgroundColor = "#D6EAFF"
 primaryColor = "#ADD6FF"
 baseRadius = "sm" 
