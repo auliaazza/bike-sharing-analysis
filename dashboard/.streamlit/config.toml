@@ -7,8 +7,9 @@ codeBackgroundColor="powderBlue"
 [theme.sidebar]
 textColor = "#31333F"
 backgroundColor = "#F8F9FA"
-secondaryBackgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#EAEFF5" 
 primaryColor = "#739BBF"
+baseRadius = "sm" 
 showSidebarBorder = true
 borderColor = "#D5DAE5"
 font = "sans serif"
