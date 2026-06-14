@@ -1,7 +1,7 @@
 [theme]
 base="light"
-backgroundColor="#FFFFFF"
-secondaryBackgroundColor = "#D6EAFF"
+backgroundColor="#D6EAFF"
+secondaryBackgroundColor = "#FFFFFF"
 primaryColor = "#84C1FF"
 baseRadius = "sm" 
 showSidebarBorder = true
