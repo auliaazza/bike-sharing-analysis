@@ -1,6 +1,6 @@
 [theme]
 base="light"
-backgroundColor="#F7F9FF"
+backgroundColor="#FFFFFF"
 secondaryBackgroundColor = "#D6EAFF"
 primaryColor = "#84C1FF"
 baseRadius = "sm" 
