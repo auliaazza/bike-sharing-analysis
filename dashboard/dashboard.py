@@ -65,10 +65,9 @@ st.sidebar.subheader("Choose a Weather")
 weather_options = [
     "All",
     "Clear",
-    "Mist",
-    "Light Snow",
-    "Light Rain",
-    "Heavy Rain"
+    "Misty",
+    "Light Rain/Snow",
+    "Heavy Rain/Snow"
 ]
 
 selected_weather = st.sidebar.radio(
