@@ -223,7 +223,8 @@ with tab1:
                 showarrow=False
                 )
             ],
-            height=350            
+            height=350,
+            margin=dict(l=20,r=20,t=20,b=20)
         )
 
         st.plotly_chart(fig, use_container_width=True)
