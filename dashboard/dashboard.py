@@ -173,7 +173,7 @@ with tab1:
             y='cnt_day',
             x_label='Date',
             y_label='Total Rentals',
-            color=["#42A5F5"]
+            color=["#42A5F5"],
             height=350
             )
         
