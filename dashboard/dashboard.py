@@ -246,7 +246,8 @@ with tab1:
                 y=-0.15,              # posisi di bawah chart
                 x=0.5,
                 xanchor="center"
-                )
+                ),
+            height=350
         )
 
         st.plotly_chart(fig, use_container_width=True)
@@ -269,7 +270,8 @@ with tab1:
         )
         fig.update_layout(
             xaxis_title='Normalized Temperature',
-            yaxis_title='Total Daily Rentals'
+            yaxis_title='Total Daily Rentals',
+            height=350
         )
             
         st.plotly_chart(fig, use_container_width=True)
@@ -281,9 +283,10 @@ with tab1:
 
         st.subheader("Hourly Usage Trends by Day Type")
         st.bar_chart(
-        data=hourly_pivot,
-        x_label="Hour of the Day",
-        y_label="Average Rentals"
+            data=hourly_pivot,
+            x_label="Hour of the Day",
+            y_label="Average Rentals",
+            height=350
         )
         
 
