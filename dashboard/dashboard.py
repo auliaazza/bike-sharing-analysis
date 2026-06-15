@@ -436,10 +436,10 @@ with tab2:
             yaxis_title='Total Rentals',
             xaxis=dict(
                 tickmode='array',
-                tickvals=list(range(1, 13)),
-                height=300
+                tickvals=list(range(1, 13))
             ),
-            legend_title='Year'
+            legend_title='Year',
+            height=300
         )
         st.plotly_chart(fig, use_container_width=True)
    
