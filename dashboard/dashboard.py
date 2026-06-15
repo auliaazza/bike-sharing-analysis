@@ -160,7 +160,7 @@ with tab1:
         )
 
     
-    col1, col2 = st.columns([3, 1], border=True)
+    col1, col2 = st.columns([2.8, 1.2], border=True)
     # DAILY TREND
     with col1:
         filtered_df['dteday'] = pd.to_datetime(filtered_df['dteday'])
@@ -215,7 +215,8 @@ with tab1:
                 font_size=16,
                 showarrow=False
                 )
-            ]      
+            ],
+            height=350            
         )
 
         st.plotly_chart(fig, use_container_width=True)
