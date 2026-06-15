@@ -339,7 +339,7 @@ with tab2:
        fig.update_layout(
             xaxis_title='Month',
             yaxis_title='Average Rental Count',
-           height=350
+           height=300
         )
        st.plotly_chart(fig, use_container_width=True)
             
@@ -360,7 +360,7 @@ with tab2:
         fig.update_layout(
             xaxis_title='Day',
             yaxis_title='Average Rental Count',
-            height=350
+            height=300
         )
         st.plotly_chart(fig, use_container_width=True)
            
@@ -383,7 +383,7 @@ with tab2:
             xaxis_title='Season',
             yaxis_title='Average Rental Count',
             legend_title='Holiday',
-            height=350
+            height=300
         )
         st.plotly_chart(fig, use_container_width=True)
 
@@ -411,7 +411,8 @@ with tab2:
         fig.update_layout(
             xaxis_title='Year',
             yaxis_title='Total Rental Count',
-            showlegend=False
+            showlegend=False,
+            height=300
         )
         st.plotly_chart(fig, use_container_width=True)
    
@@ -435,7 +436,8 @@ with tab2:
             yaxis_title='Total Rentals',
             xaxis=dict(
                 tickmode='array',
-                tickvals=list(range(1, 13))
+                tickvals=list(range(1, 13)),
+                height=300
             ),
             legend_title='Year'
         )
