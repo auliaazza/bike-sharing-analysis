@@ -20,71 +20,69 @@ def load_data():
 df = load_data()
 
 # Sidebar Configuration
-st.sidebar.image("dashboard/logo_bike_sharing.png", width=150)
-st.sidebar.markdown("""
-<style>
-section[data-testid="stSidebar"] .block-container {
-    padding-top: 0.5rem;
-}
-</style>
-""", unsafe_allow_html=True)
+import datetime
+import streamlit as st
 
-# Sidebar Filter Controls
-st.sidebar.header("Filter Controls")
+# ... (pastikan df dan library lainnya sudah di-import) ...
 
-# Date Range Filter
-st.sidebar.subheader("Date Range")
-min_date = datetime.date(2011, 1, 1)
-max_date = datetime.date(2012, 12, 31)
+with st.sidebar:
+    st.image("dashboard/logo_bike_sharing.png", width=150)
+    st.subheader("Filter Controls")
+    
+    # 1. Date Range Filter
+    st.markdown("### Date Range")
+    min_date = datetime.date(2011, 1, 1)
+    max_date = datetime.date(2012, 12, 31)
+    
+    # Membuat 2 kolom di dalam sidebar
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        start_date = st.date_input(
+            label="Start Date",
+            value=min_date,
+            min_value=min_date,
+            max_value=max_date,
+            format="DD/MM/YYYY"
+        ) 
+    with col2:
+        end_date = st.date_input(
+            label="End Date",
+            value=max_date,
+            min_value=min_date,
+            max_value=max_date,
+            format="DD/MM/YYYY"
+        )
+               
+    # 2. Season Filter
+    st.markdown("### Season")
+    list_season = sorted(df['season_day'].unique())
 
-col1, col2 = st.sidebar.columns(2, border=True)
-with col1:
-    start_date = st.date_input(
-        label="Start Date",
-        value=min_date,      
-        min_value=min_date,  
-        max_value=max_date,  
-        format="DD/MM/YYYY"
+    selected_season_day = st.segmented_control(
+        label="Select Season",
+        options=["All"] + list(list_season),
+        default="All",
+        label_visibility="collapsed"
     )
 
-with col2:
-    end_date = st.date_input(
-        label="End Date",
-        value=max_date,      
-        min_value=min_date,
-        max_value=max_date,
-        format="DD/MM/YYYY"
+    # 3. Weather Condition Filter
+    st.markdown("### Weather Condition")
+    weather_options = [
+        "All",
+        "Clear",
+        "Misty",
+        "Light Rain/Snow",
+        "Heavy Rain/Snow"
+    ]
+
+    selected_weather = st.radio(
+        label="Select Weather",
+        options=weather_options,
+        index=0,
+        label_visibility="collapsed"
     )
 
-# Season Filter
-st.sidebar.subheader("Season")
-list_season = sorted(df['season_day'].unique())
-
-selected_season_day = st.sidebar.segmented_control(
-    label="Select Season",
-    options=["All"] + list(list_season),
-    default="All",
-    label_visibility="collapsed"
-)
-
-# Weather Condition Filter
-st.sidebar.subheader("Weather Condition")
-weather_options = [
-    "All",
-    "Clear",
-    "Misty",
-    "Light Rain/Snow",
-    "Heavy Rain/Snow"
-]
-
-selected_weather = st.sidebar.radio(
-    label="Select Weather",
-    options=weather_options,
-    index=0,
-    label_visibility="collapsed"
-)
-
-# Data Filtering Process
+# --- Proses Filter Data (Di luar blok sidebar) ---
 filtered_df = df[(df['dteday'].dt.date >= start_date) & (df['dteday'].dt.date <= end_date)]
 
 if selected_season_day != "All":
@@ -92,6 +90,7 @@ if selected_season_day != "All":
 
 if selected_weather != "All":
     filtered_df = filtered_df[filtered_df["weather_situation_hour"] == selected_weather]
+
     
 # Main Dashboard Active Range
 st.write(f"Active Data Range: **{start_date.strftime('%d %b %Y')}** to **{end_date.strftime('%d %b %Y')}**")
