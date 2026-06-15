@@ -311,7 +311,8 @@ with tab2:
         )
         fig.update_layout(
             xaxis_title='Hour',
-            yaxis_title='Average Rental Count'
+            yaxis_title='Average Rental Count',
+            height=300
         )
         fig.update_xaxes(
             tickmode='linear',
