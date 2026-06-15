@@ -20,7 +20,14 @@ def load_data():
 df = load_data()
 
 # SIDEBAR
-st.sidebar.image("dashboard/logo_bike_sharing.png" , width= 220)
+st.sidebar.image("dashboard/logo_bike_sharing.png" , width= 150)
+st.sidebar.markdown("""
+<style>
+section[data-testid="stSidebar"] .block-container {
+    padding-top: 0.5rem;
+}
+</style>
+""", unsafe_allow_html=True)
 
 #Filter Interaktif
 st.sidebar.header("Filter Controls")
