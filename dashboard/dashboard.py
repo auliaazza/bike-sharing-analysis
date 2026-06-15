@@ -174,6 +174,7 @@ with tab1:
             x_label='Date',
             y_label='Total Rentals',
             color=["#42A5F5"]
+            height=350
             )
         
     #USER TYPE
