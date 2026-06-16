@@ -115,9 +115,13 @@ with tab1:
                 return f"{num/1_000:.1f}".rstrip("0").rstrip(".") + "K"
             return str(num)
 
+        total_rentals = filtered_df['cnt_day'].sum()
+        total_delta_value = filtered_df['registered_day'].sum()
+
         st.metric(
             label="Total Rentals",
-            value=format_number(filtered_df['cnt_day'].sum())
+            value=format_number(total_rentals),
+            delta=f"+{format_number(total_delta_value)} Registered Members"
         )
     with col2:
         if not filtered_df.empty:
