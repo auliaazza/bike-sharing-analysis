@@ -78,7 +78,7 @@ with st.sidebar:
     with col1:
         st.link_button("LinkedIn", "https://www.linkedin.com/in/azzahraa248")
     with col2:
-        st.link_button("Github", "https://github.com/auliaazza/bike-sharing-analysis")
+        st.link_button(" Github ", "https://github.com/auliaazza/bike-sharing-analysis")
 
 # Filtered Data
 filtered_df = df[(df['dteday'].dt.date >= start_date) & (df['dteday'].dt.date <= end_date)]
