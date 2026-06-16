@@ -20,10 +20,10 @@ def load_data():
 df = load_data()
 
 with st.sidebar:
-    st.subheader("Filter Controls")
+    st.markdown("#Filter Controls")
     
     # Date Range Filter
-    st.markdown("### Date Range")
+    st.markdown("## Date Range")
     min_date = datetime.date(2011, 1, 1)
     max_date = datetime.date(2012, 12, 31)
 
@@ -46,7 +46,7 @@ with st.sidebar:
         )
                
     # Season Filter
-    st.markdown("### Season")
+    st.markdown("## Season")
     list_season = sorted(df['season_day'].unique())
 
     selected_season_day = st.segmented_control(
@@ -57,7 +57,7 @@ with st.sidebar:
     )
 
     # Weather Condition Filter
-    st.markdown("### Weather Condition")
+    st.markdown("## Weather Condition")
     weather_options = [
         "All",
         "Clear",
