@@ -166,7 +166,7 @@ with tab1:
             delta=f"{peak_hour_value:,} total rides" if peak_hour_value > 0 else None
         )
 
-    col1, col2, col3 = st.columns([2.8, 1.2, 1.2], vertical_alignment="middle", border=True)
+    col1, col2, col3 = st.columns([2.8, 1.2, 1.2], vertical_alignment="center", border=True)
     with col1:
         daily_trend = filtered_df.groupby('dteday')['cnt_day'].sum().reset_index()
         st.subheader("Daily Rental Timeline")
