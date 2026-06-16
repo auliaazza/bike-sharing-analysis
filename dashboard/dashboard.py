@@ -114,7 +114,7 @@ with tab1:
             elif num >= 1_000:
                 return f"{num/1_000:.1f}".rstrip("0").rstrip(".") + "K"
             return str(num)
-        
+
         st.metric(
             label="Total Rentals",
             value=format_number(filtered_df['cnt_day'].sum())
@@ -153,7 +153,7 @@ with tab1:
             delta=f"{peak_hour_value:,} total rides" if peak_hour_value > 0 else None
         )
 
-    col1, col2 = st.columns([2.8, 1.2], border=True)
+    col1, col2, col3 = st.columns([2.8, 1.2, 1.2], vertical_alignment="center", border=True)
     with col1:
         daily_trend = filtered_df.groupby('dteday')['cnt_day'].sum().reset_index()
         st.subheader("Daily Rental Timeline")
@@ -190,9 +190,7 @@ with tab1:
             height=350            
         )
         st.plotly_chart(fig, use_container_width=True)
-        
-    col1, col2 = st.columns([1, 2], border=True)
-    with col1:
+    with col3:
         st.subheader("Weather Condition Share")
         weather_dist = filtered_df['weather_situation_day'].value_counts().reset_index()
         weather_dist.columns = ['Weather Condition', 'Record Count']
@@ -207,8 +205,9 @@ with tab1:
             height=350
         )
         st.plotly_chart(fig, use_container_width=True)
-    
-    with col2:
+        
+    col1, col2 = st.columns([2.5, 3.5], border=True)
+    with col1:
         st.subheader("Temperature vs. Rental Volume")
         filtered_df['temp_category'] = pd.cut(
             filtered_df['temp_norm_day'],
@@ -231,7 +230,7 @@ with tab1:
         fig.update_layout(height=350)
         st.plotly_chart(fig, use_container_width=True)
     
-    with st.container(border=True):
+    with col2:
         st.subheader("Average Hourly Demand by Day Type")
         hourly_trend = filtered_df.groupby(['hour', 'workingday_hour'])['cnt_hour'].mean().reset_index()
         hourly_pivot = hourly_trend.pivot(index='hour', columns='workingday_hour', values='cnt_hour')
