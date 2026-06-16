@@ -306,16 +306,18 @@ with tab2:
     col1, col2 = st.columns([1.2, 2.8], border=True)
     with col1:
         st.subheader("Total Annual Rental Volume")
-        yearly = filtered_df.groupby('year_day')['cnt_day'].sum().reset_index()
+        monthly_trend = filtered_df.groupby(['numeric_month', 'year_day'])['cnt_day'].sum().reset_index()
+        monthly_trend['year_day'] = monthly_trend['year_day'].astype(str)
+
         fig = px.bar(
-            yearly,
+            monthly_trend,
             x='year_day',
             y='cnt_day',
             text='cnt_day',
             labels={'year_day': 'Year', 'cnt_day': 'Total Aggregate Rentals'}
         )
         fig.update_traces(texttemplate='%{text:,.0f}', textposition='outside')
-        fig.update_layout(showlegend=False, height=280)
+        fig.update_layout(showlegend=False, height=300)
         st.plotly_chart(fig, use_container_width=True)
    
     with col2:
@@ -331,7 +333,7 @@ with tab2:
         )
         fig.update_layout(
             xaxis=dict(tickmode='array', tickvals=list(range(1, 13))),
-            height=280
+            height=300
         )
         st.plotly_chart(fig, use_container_width=True)
 
