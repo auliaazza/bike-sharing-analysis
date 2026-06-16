@@ -174,7 +174,8 @@ with tab1:
         fig.update_layout(
             legend=dict(orientation="h", y=-0.15, x=0.5, xanchor="center"),
             annotations=[dict(text="Users", x=0.5, y=0.5, font_size=16, showarrow=False)],
-            height=280            
+            height=280,
+            margin=dict(l=0, r=0, t=20, b=0)            
         )
         st.plotly_chart(fig, use_container_width=True)
     with col3:
@@ -190,7 +191,8 @@ with tab1:
         fig.update_layout(
             legend=dict(orientation="h", y=-0.15, x=0.5, xanchor="center"),
             annotations=[dict(text="Users", x=0.5, y=0.5, font_size=16, showarrow=False)],
-            height=280
+            height=280,
+            margin=dict(l=0, r=0, t=20, b=0)
         )
         st.plotly_chart(fig, use_container_width=True)
         
