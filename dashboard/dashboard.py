@@ -104,7 +104,7 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
 
 # Overview Tab
 with tab1:
-    st.subheader("📌 Executive Performance Summary")
+    st.subheader("📌 Bike Sharing Overview")
 
     col1, col2, col3, col4 = st.columns(4, border=True)
     with col1:
@@ -116,57 +116,31 @@ with tab1:
             return str(num)
 
         total_rentals = filtered_df['cnt_day'].sum()
-        total_delta_value = filtered_df['registered_day'].sum()
 
         st.metric(
             label="Total Rentals",
-            value=format_number(total_rentals),
-            delta=f"+{format_number(total_delta_value)} Registered Members"
+            value=format_number(total_rentals)
         )
     with col2:
-        if not filtered_df.empty:
-            raw_avg = filtered_df['cnt_hour'].mean()
-            average_rentals_display = f"{raw_avg:.1f}" if not pd.isna(raw_avg) else "0.0"
-            delta_display = "Per Hour"
-        else:
-            average_rentals_display = "No Data"
-            delta_display = None
-
         st.metric(
             label="Avg. Rentals per Hour",
-            value=average_rentals_display,
-            delta=delta_display
+            value=f"{filtered_df['cnt_hour'].mean():.1f}" if not filtered_df.empty else "No Data"
         )
     with col3:
-        if not filtered_df.empty:
-            busiest_day = filtered_df.groupby('weekday_day')['cnt_day'].sum().idxmax()
-            busiest_day_value = filtered_df.groupby('weekday_day')['cnt_day'].sum().max()
-        else:
-            busiest_day = "No Data"
-            busiest_day_value = 0
-            
         st.metric(
             label="Busiest Day", 
-            value=str(busiest_day), 
-            delta=f"{busiest_day_value:,} rides" if busiest_day_value > 0 else None
+            value=str(filtered_df.groupby('weekday_day')['cnt_day'].sum().idxmax())
         )
     with col4:
-        if not filtered_df.empty:
-            peak_hour = filtered_df.groupby('hour')['cnt_hour'].mean().idxmax()
-            peak_hour_value = filtered_df.groupby('hour')['cnt_hour'].sum().max()
-        else:
-            peak_hour = "No Data"
-            peak_hour_value = 0
-
+        peak_hour = filtered_df.groupby('hour')['cnt_hour'].mean().idxmax()
         hour_display = f"{int(peak_hour):02d}:00" if peak_hour != "No Data" else "No Data"
 
         st.metric(
             label="Peak Hour",
-            value=hour_display,
-            delta=f"{peak_hour_value:,} total rides" if peak_hour_value > 0 else None
+            value=hour_display            
         )
 
-    col1, col2, col3 = st.columns([2.8, 1.2, 1.2], vertical_alignment="center", border=True)
+    col1, col2, col3 = st.columns([2.5, 1.2, 1.2], vertical_alignment="center", border=True)
     with col1:
         daily_trend = filtered_df.groupby('dteday')['cnt_day'].sum().reset_index()
         st.subheader("Daily Rental Timeline")
@@ -177,7 +151,7 @@ with tab1:
             x_label='Date',
             y_label='Total Rentals',
             color=["#42A5F5"],
-            height=300
+            height=280
         )
         
     with col2:
@@ -200,7 +174,7 @@ with tab1:
         fig.update_layout(
             legend=dict(orientation="h", y=-0.15, x=0.5, xanchor="center"),
             annotations=[dict(text="Users", x=0.5, y=0.5, font_size=16, showarrow=False)],
-            height=300            
+            height=280            
         )
         st.plotly_chart(fig, use_container_width=True)
     with col3:
@@ -216,7 +190,7 @@ with tab1:
         fig.update_layout(
             legend=dict(orientation="h", y=-0.15, x=0.5, xanchor="center"),
             annotations=[dict(text="Users", x=0.5, y=0.5, font_size=16, showarrow=False)],
-            height=300
+            height=280
         )
         st.plotly_chart(fig, use_container_width=True)
         
@@ -241,7 +215,7 @@ with tab1:
                 'temp_category': 'Temp Level'
             }
         )
-        fig.update_layout(height=300)
+        fig.update_layout(height=280)
         st.plotly_chart(fig, use_container_width=True)
     
     with col2:
@@ -253,7 +227,7 @@ with tab1:
             data=hourly_pivot,
             x_label="Hour of the Day",
             y_label="Average Rental Count",
-            height=300
+            height=280
         )
 
 # Usage Patterns Tab
