@@ -19,24 +19,15 @@ def load_data():
 
 df = load_data()
 
-# Sidebar Configuration
-import datetime
-import streamlit as st
-
-# ... (pastikan df dan library lainnya sudah di-import) ...
-
 with st.sidebar:
-    st.image("dashboard/logo_bike_sharing.png", width=150)
-    st.subheader("Filter Controls")
+    st.header("Filter Controls")
     
-    # 1. Date Range Filter
+    # Date Range Filter
     st.markdown("### Date Range")
     min_date = datetime.date(2011, 1, 1)
     max_date = datetime.date(2012, 12, 31)
-    
-    # Membuat 2 kolom di dalam sidebar
+
     col1, col2 = st.columns(2)
-    
     with col1:
         start_date = st.date_input(
             label="Start Date",
@@ -54,7 +45,7 @@ with st.sidebar:
             format="DD/MM/YYYY"
         )
                
-    # 2. Season Filter
+    # Season Filter
     st.markdown("### Season")
     list_season = sorted(df['season_day'].unique())
 
@@ -65,7 +56,7 @@ with st.sidebar:
         label_visibility="collapsed"
     )
 
-    # 3. Weather Condition Filter
+    # Weather Condition Filter
     st.markdown("### Weather Condition")
     weather_options = [
         "All",
@@ -82,7 +73,7 @@ with st.sidebar:
         label_visibility="collapsed"
     )
 
-# --- Proses Filter Data (Di luar blok sidebar) ---
+# Filtered Data
 filtered_df = df[(df['dteday'].dt.date >= start_date) & (df['dteday'].dt.date <= end_date)]
 
 if selected_season_day != "All":
