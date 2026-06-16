@@ -114,13 +114,14 @@ with tab1:
             elif num >= 1_000:
                 return f"{num/1_000:.1f}".rstrip("0").rstrip(".") + "K"
             return str(num)
-        st.metric(
-            label="Total Rentals",
-            value=f"{format_number(filtered_df['cnt_day'].sum())}"
-        )      
+        
+        st.container(border=True)
+        st.caption("Total Rentals")
+        st.markdown(f"{format_number(filtered_df['cnt_day'].sum())}")
+
     with col2:
         st.metric(
-            label="Avg. Hourly Rentals",
+            label="Avg Rentals/Hour",
             value=int(filtered_df['cnt_hour'].mean() if not pd.isna(filtered_df['cnt_hour'].mean()) else 0)
         )
     with col3:
@@ -132,7 +133,7 @@ with tab1:
             busiest_day_value = 0
             
         st.metric(
-            label="Busiest Day of Week", 
+            label="Busiest Day", 
             value=str(busiest_day), 
             delta=f"{busiest_day_value:,} rides" if busiest_day_value > 0 else None
         )
