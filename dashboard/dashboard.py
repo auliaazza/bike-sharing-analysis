@@ -317,7 +317,7 @@ with tab2:
             labels={'year_day': 'Year', 'cnt_day': 'Total Aggregate Rentals'}
         )
         fig.update_traces(texttemplate='%{text:,.0f}', textposition='outside')
-        fig.update_layout(showlegend=False, height=300)
+        fig.update_layout(showlegend=False, height=420)
         st.plotly_chart(fig, use_container_width=True)
    
     with col2:
@@ -333,7 +333,7 @@ with tab2:
         )
         fig.update_layout(
             xaxis=dict(tickmode='array', tickvals=list(range(1, 13))),
-            height=300
+            height=420
         )
         st.plotly_chart(fig, use_container_width=True)
 
