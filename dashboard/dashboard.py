@@ -124,28 +124,42 @@ with tab1:
                 return f"{num/1_000:.1f}".rstrip("0").rstrip(".") + "K"
             return str(num)
 
-        total_rentals = filtered_df['cnt_day'].sum()
-
-        st.metric(
-            label="Total Rentals",
-            value=format_number(total_rentals)
-        )
+            total_rentals = filtered_df['cnt_day'].sum() if not filtered_df.empty else 0
+            st.metric(
+                label="Total Rentals",
+                value=format_number(total_rentals)
+            )
 
     with col2:
+        if not filtered_df.empty:
+            raw_avg = filtered_df['cnt_hour'].mean()
+            average_rentals_display = f"{raw_avg:.1f}" if not pd.isna(raw_avg) else "0.0"
+        else:
+            average_rentals_display = "No Data"
+
         st.metric(
             label="Avg. Rentals per Hour",
-            value=f"{filtered_df['cnt_hour'].mean():.1f}" if not filtered_df.empty else "No Data"
+            value=average_rentals_display
         )
 
     with col3:
+        if not filtered_df.empty and len(filtered_df.groupby('weekday_day')) > 0:
+            busiest_day = filtered_df.groupby('weekday_day')['cnt_day'].sum().idxmax()
+            busiest_day_display = str(busiest_day)
+        else:
+            busiest_day_display = "No Data"
+
         st.metric(
             label="Busiest Day", 
-            value=str(filtered_df.groupby('weekday_day')['cnt_day'].sum().idxmax())
+            value=busiest_day_display
         )
 
     with col4:
-        peak_hour = filtered_df.groupby('hour')['cnt_hour'].mean().idxmax()
-        hour_display = f"{int(peak_hour):02d}:00" if peak_hour != "No Data" else "No Data"
+        if not filtered_df.empty and len(filtered_df.groupby('hour')) > 0:
+            peak_hour = filtered_df.groupby('hour')['cnt_hour'].mean().idxmax()
+            hour_display = f"{int(peak_hour):02d}:00"
+        else:
+            hour_display = "No Data"
 
         st.metric(
             label="Peak Hour",
