@@ -74,7 +74,7 @@ with st.sidebar:
     )
 
     st.markdown(" ### Connect with Me")
-    col1, col2 = st.columns([1, 10], gap="small")
+    col1, col2 = st.columns([3, 10], gap="small")
     with col1:
         st.link_button("LinkedIn", "https://www.linkedin.com/in/azzahraa248")
     with col2:
