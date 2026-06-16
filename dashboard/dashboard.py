@@ -36,6 +36,7 @@ with st.sidebar:
             max_value=max_date,
             format="DD/MM/YYYY"
         ) 
+
     with col2:
         end_date = st.date_input(
             label="End Date",
@@ -121,16 +122,19 @@ with tab1:
             label="Total Rentals",
             value=format_number(total_rentals)
         )
+
     with col2:
         st.metric(
             label="Avg. Rentals per Hour",
             value=f"{filtered_df['cnt_hour'].mean():.1f}" if not filtered_df.empty else "No Data"
         )
+
     with col3:
         st.metric(
             label="Busiest Day", 
             value=str(filtered_df.groupby('weekday_day')['cnt_day'].sum().idxmax())
         )
+
     with col4:
         peak_hour = filtered_df.groupby('hour')['cnt_hour'].mean().idxmax()
         hour_display = f"{int(peak_hour):02d}:00" if peak_hour != "No Data" else "No Data"
@@ -140,7 +144,7 @@ with tab1:
             value=hour_display            
         )
 
-    col1, col2, col3 = st.columns([2.5, 1.2, 1.2], vertical_alignment="center", border=True)
+    col1, col2, col3 = st.columns([2.5, 1.2, 1.2], border=True)
     with col1:
         daily_trend = filtered_df.groupby('dteday')['cnt_day'].sum().reset_index()
         st.subheader("Daily Rental Timeline")
@@ -175,9 +179,10 @@ with tab1:
             legend=dict(orientation="h", y=-0.15, x=0.5, xanchor="center"),
             annotations=[dict(text="Users", x=0.5, y=0.5, font_size=16, showarrow=False)],
             height=280,
-            margin=dict(l=0, r=0, t=20, b=0)            
+            margin=dict(l=0, r=0, t=22, b=0)            
         )
         st.plotly_chart(fig, use_container_width=True)
+
     with col3:
         st.subheader("Weather Distribution")
         weather_dist = filtered_df['weather_situation_day'].value_counts().reset_index()
@@ -192,7 +197,7 @@ with tab1:
             legend=dict(orientation="h", y=-0.15, x=0.5, xanchor="center"),
             annotations=[dict(text="Users", x=0.5, y=0.5, font_size=16, showarrow=False)],
             height=280,
-            margin=dict(l=0, r=0, t=20, b=0)
+            margin=dict(l=0, r=0, t=22, b=0)
         )
         st.plotly_chart(fig, use_container_width=True)
         
@@ -266,7 +271,7 @@ with tab2:
             markers=True,
             labels={'month_day': 'Month', 'cnt_day': 'Avg. Daily Rentals'}
         )
-        fig.update_layout(height=300)
+        fig.update_layout(height=280)
         st.plotly_chart(fig, use_container_width=True)
             
     with col2:
@@ -279,7 +284,7 @@ with tab2:
             color='cnt_hour',
             labels={'weekday_hour': 'Day of Week', 'cnt_hour': 'Avg. Rental Volume'}
         )
-        fig.update_layout(height=300, coloraxis_showscale=False)
+        fig.update_layout(height=280, coloraxis_showscale=False)
         st.plotly_chart(fig, use_container_width=True)
            
     with col3:
@@ -293,12 +298,12 @@ with tab2:
             barmode='group',
             labels={'season_hour': 'Season', 'cnt_hour': 'Avg. Rentals', 'holiday_hour': 'Holiday'}
         )
-        fig.update_layout(height=300)
+        fig.update_layout(height=280)
         st.plotly_chart(fig, use_container_width=True)
 
     st.subheader("📈 Macro Growth Comparison: 2011 vs. 2012")
 
-    col1, col2 = st.columns(2, border=True)
+    col1, col2 = st.columns([1.5, 2.5], border=True)
     with col1:
         st.subheader("Total Annual Rental Volume")
         yearly = filtered_df.groupby('year_day')['cnt_day'].sum().reset_index()
@@ -310,7 +315,7 @@ with tab2:
             labels={'year_day': 'Year', 'cnt_day': 'Total Aggregate Rentals'}
         )
         fig.update_traces(texttemplate='%{text:,.0f}', textposition='outside')
-        fig.update_layout(showlegend=False, height=300)
+        fig.update_layout(showlegend=False, height=280)
         st.plotly_chart(fig, use_container_width=True)
    
     with col2:
@@ -326,7 +331,7 @@ with tab2:
         )
         fig.update_layout(
             xaxis=dict(tickmode='array', tickvals=list(range(1, 13))),
-            height=300
+            height=280
         )
         st.plotly_chart(fig, use_container_width=True)
 
@@ -334,7 +339,7 @@ with tab2:
 with tab3:
     st.subheader("🌦️ Environmental & Weather Impact Matrix")
     
-    col1, col2 = st.columns(2, border=True)
+    col1, col2 = st.columns([2, 1], border=True)
     with col1:
         st.subheader("Temperature vs. Hourly Rentals")
         if filtered_df.empty:
@@ -425,7 +430,7 @@ with tab4:
 # Operational Insights Tab
 with tab5:
     st.subheader("✅ Data-Driven Fleet Optimization Insights")
-    col1, col2 = st.columns(2, border=True)
+    col1, col2 = st.columns([2, 1], border=True)
     with col1:
         st.subheader("Commuter Windows vs. Leisure Patterns")
         if filtered_df.empty:
