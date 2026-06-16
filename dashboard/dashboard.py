@@ -106,26 +106,26 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
 with tab1:
     st.subheader("📌 Executive Performance Summary")
 
-    col1, col2, col3, col4 = st.columns(4, border=True)
+    col1, col2, col3, col4 = st.columns(4)
     st.markdown("""
-                <style>
-                /* Mengecilkan kotak metrik */
-                div[data-testid="stMetricBlock"] {
-                    max-width: 170px;
-                    padding: 10px !important;
-                }
-                
-                /* Mengecilkan ukuran teks Label (misal: "Total Rentals") */
-                div[data-testid="stMetricLabel"] p {
-                    font-size: 14px !important;
-                }
-                
-                /* Mengecilkan ukuran teks Angka Utama (misal: "2,560,112") */
-                div[data-testid="stMetricValue"] div {
-                    font-size: 24px !important;
-                }
-                </style>
-                """, unsafe_allow_html=True)
+            <style>
+            /* Mengincar dan mengecilkan kotak metrik sekaligus memberi border */
+            div[data-testid="stMetricBlock"] {
+                max-width: 180px; /* Mengunci lebar maksimal kotak */
+                border: 1px solid rgba(49, 51, 63, 0.2); /* Membuat garis border yang pas */
+                border-radius: 8px; /* Membuat sudut kotak agak bulat/aesthetic */
+                padding: 12px !important; /* Memberi jarak dalam kotak agar tidak terlalu mepet */
+                background-color: #ffffff; /* Warna latar belakang kotak */
+                box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05); /* Efek bayangan halus */
+            }
+            
+            /* Membuat posisi kotak metrik rapi di tengah kolom jika layar melebar */
+            div[data-testid="stColumn"] {
+                display: flex;
+                justify-content: flex-start;
+            }
+            </style>
+            """, unsafe_allow_html=True)
     with col1:
         def format_number(num):
             if num >= 1_000_000:
@@ -133,7 +133,7 @@ with tab1:
             elif num >= 1_000:
                 return f"{num/1_000:.1f}".rstrip("0").rstrip(".") + "K"
             return str(num)
-        st.markdown("**Total Rentals**")
+        
         st.metric(
             label="Total Rentals",
             value=format_number(filtered_df['cnt_day'].sum())
