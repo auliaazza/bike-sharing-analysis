@@ -116,6 +116,7 @@ with tab1:
             return str(num)
         st.markdown("**Total Rentals**")
         st.metric(
+            label="Total Rentals",
             value=format_number(filtered_df['cnt_day'].sum())
         )
     with col2:
