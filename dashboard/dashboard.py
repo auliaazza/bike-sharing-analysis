@@ -256,7 +256,7 @@ with tab2:
                 'workingday_hour': 'Day Classification'
             }
         )
-        fig.update_layout(height=300)
+        fig.update_layout(height=350)
         fig.update_xaxes(tickmode='linear', tick0=0, dtick=1)
         st.plotly_chart(fig, use_container_width=True)
    
@@ -303,7 +303,7 @@ with tab2:
 
     st.subheader("📈 Macro Growth Comparison: 2011 vs. 2012")
 
-    col1, col2 = st.columns([1.5, 2.5], border=True)
+    col1, col2 = st.columns([1.2, 2.8], border=True)
     with col1:
         st.subheader("Total Annual Rental Volume")
         yearly = filtered_df.groupby('year_day')['cnt_day'].sum().reset_index()
