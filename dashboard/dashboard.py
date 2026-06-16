@@ -114,9 +114,8 @@ with tab1:
             elif num >= 1_000:
                 return f"{num/1_000:.1f}".rstrip("0").rstrip(".") + "K"
             return str(num)
-        
+        st.markdown("**Total Rentals**")
         st.metric(
-            label="Total Rentals",
             value=format_number(filtered_df['cnt_day'].sum())
         )
     with col2:
