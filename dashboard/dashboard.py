@@ -106,11 +106,17 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
 with tab1:
     st.subheader("📌 Executive Performance Summary")
 
-    col1, col2, col3, col4, col5 = st.columns(5, border=True)
+    col1, col2, col3, col4 = st.columns(4, border=True)
     with col1:
+        def format_number(num):
+            if num >= 1_000_000:
+                return f"{num/1_000_000:.1f}".rstrip("0").rstrip(".") + "M"
+            elif num >= 1_000:
+                return f"{num/1_000:.1f}".rstrip("0").rstrip(".") + "K"
+            return str(num)
         st.metric(
             label="Total Rentals",
-            value=f"{filtered_df['cnt_day'].sum():,}"
+            value=f"{format_number(filtered_df['cnt_day'].sum())}"
         )      
     with col2:
         st.metric(
@@ -144,15 +150,6 @@ with tab1:
             label="Peak Hour",
             value=hour_display,
             delta=f"{peak_hour_value:,} total rides" if peak_hour_value > 0 else None
-        )
-    with col5:
-        total = filtered_df['cnt_day'].sum()
-        registered = filtered_df['registered_day'].sum()
-        registered_ratio = (registered / total) * 100 if total > 0 else 0
-    
-        st.metric(
-            label="Registered Member Ratio",
-            value=f"{registered_ratio:.1f}%"
         )
 
     col1, col2 = st.columns([2.8, 1.2], border=True)
