@@ -73,13 +73,12 @@ with st.sidebar:
         label_visibility="collapsed"
     )
 
-    st.markdown("""
-    <div style="text-align:center;">
-        <a href="https://github.com/username" target="_blank">GitHub</a> |
-        <a href="https://linkedin.com/in/username" target="_blank">LinkedIn</a> |
-        <a href="mailto:email@gmail.com">Email</a>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown(" ### Connect with Me")
+    col1, col2 = st.columns (2)
+    with col1:
+        st.page_link("www.linkedin.com/in/azzahraa248", label="LinkedIn")
+    with col2:
+        st.page_link("https://github.com/auliaazza/bike-sharing-analysis", label="Github")
 
 # Filtered Data
 filtered_df = df[(df['dteday'].dt.date >= start_date) & (df['dteday'].dt.date <= end_date)]
