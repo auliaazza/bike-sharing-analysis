@@ -74,7 +74,7 @@ with st.sidebar:
     )
 
     st.markdown(" ### Connect with Me")
-    col1, col2 = st.columns([7, 9], gap="small")
+    col1, col2 = st.columns([7, 9], gap="xsmall")
     with col1:
         st.link_button("LinkedIn", "https://www.linkedin.com/in/azzahraa248")
     with col2:
@@ -106,7 +106,7 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
 with tab1:
     st.subheader("📌 Executive Performance Summary")
 
-    col1, col2, col3, col4 = st.columns(4, border=True)
+    col1, col2, col3, col4 = st.columns(4, Literal="center",border=True)
     with col1:
         def format_number(num):
             if num >= 1_000_000:
@@ -166,7 +166,7 @@ with tab1:
             delta=f"{peak_hour_value:,} total rides" if peak_hour_value > 0 else None
         )
 
-    col1, col2, col3 = st.columns([2.8, 1.2, 1.2], vertical_alignment="center", border=True)
+    col1, col2, col3 = st.columns([2.8, 1.2, 1.2], Literal="center", border=True)
     with col1:
         daily_trend = filtered_df.groupby('dteday')['cnt_day'].sum().reset_index()
         st.subheader("Daily Rental Timeline")
@@ -177,7 +177,7 @@ with tab1:
             x_label='Date',
             y_label='Total Rentals',
             color=["#42A5F5"],
-            height=350
+            height=300
         )
         
     with col2:
@@ -200,7 +200,7 @@ with tab1:
         fig.update_layout(
             legend=dict(orientation="h", y=-0.15, x=0.5, xanchor="center"),
             annotations=[dict(text="Users", x=0.5, y=0.5, font_size=16, showarrow=False)],
-            height=350            
+            height=300            
         )
         st.plotly_chart(fig, use_container_width=True)
     with col3:
@@ -215,7 +215,7 @@ with tab1:
         )
         fig.update_layout(
             legend=dict(orientation="h", y=-0.15, x=0.5, xanchor="center"),
-            height=350
+            height=300
         )
         st.plotly_chart(fig, use_container_width=True)
         
@@ -240,7 +240,7 @@ with tab1:
                 'temp_category': 'Temp Level'
             }
         )
-        fig.update_layout(height=350)
+        fig.update_layout(height=300)
         st.plotly_chart(fig, use_container_width=True)
     
     with col2:
@@ -252,7 +252,7 @@ with tab1:
             data=hourly_pivot,
             x_label="Hour of the Day",
             y_label="Average Rental Count",
-            height=350
+            height=300
         )
 
 # Usage Patterns Tab
