@@ -107,6 +107,25 @@ with tab1:
     st.subheader("📌 Executive Performance Summary")
 
     col1, col2, col3, col4 = st.columns(4, border=True)
+    st.markdown("""
+                <style>
+                /* Mengecilkan kotak metrik */
+                div[data-testid="stMetricBlock"] {
+                    max-width: 170px;
+                    padding: 10px !important;
+                }
+                
+                /* Mengecilkan ukuran teks Label (misal: "Total Rentals") */
+                div[data-testid="stMetricLabel"] p {
+                    font-size: 14px !important;
+                }
+                
+                /* Mengecilkan ukuran teks Angka Utama (misal: "2,560,112") */
+                div[data-testid="stMetricValue"] div {
+                    font-size: 24px !important;
+                }
+                </style>
+                """, unsafe_allow_html=True)
     with col1:
         def format_number(num):
             if num >= 1_000_000:
