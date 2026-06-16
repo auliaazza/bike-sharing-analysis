@@ -115,10 +115,10 @@ with tab1:
                 return f"{num/1_000:.1f}".rstrip("0").rstrip(".") + "K"
             return str(num)
         
-        st.container(border=True)
-        st.caption("Total Rentals")
-        st.markdown(f"{format_number(filtered_df['cnt_day'].sum())}")
-
+        st.metric(
+            label="Total Rentals",
+            value=format_number(filtered_df['cnt_day'].sum())
+        )
     with col2:
         st.metric(
             label="Avg Rentals/Hour",
