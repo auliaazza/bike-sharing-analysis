@@ -204,7 +204,7 @@ with tab1:
         )
         st.plotly_chart(fig, use_container_width=True)
     with col3:
-        st.subheader("Weather Condition Share")
+        st.subheader("Weather Distribution")
         weather_dist = filtered_df['weather_situation_day'].value_counts().reset_index()
         weather_dist.columns = ['Weather Condition', 'Record Count']
 
@@ -215,6 +215,7 @@ with tab1:
         )
         fig.update_layout(
             legend=dict(orientation="h", y=-0.15, x=0.5, xanchor="center"),
+            annotations=[dict(text="Users", x=0.5, y=0.5, font_size=16, showarrow=False)],
             height=300
         )
         st.plotly_chart(fig, use_container_width=True)
