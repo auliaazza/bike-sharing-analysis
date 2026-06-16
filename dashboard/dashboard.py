@@ -120,9 +120,18 @@ with tab1:
             value=format_number(filtered_df['cnt_day'].sum())
         )
     with col2:
+        if not filtered_df.empty:
+            raw_avg = filtered_df['cnt_hour'].mean()
+            average_rentals_display = f"{raw_avg:.1f}" if not pd.isna(raw_avg) else "0.0"
+            delta_display = "Per Hour"
+        else:
+            average_rentals_display = "No Data"
+            delta_display = None
+
         st.metric(
-            label="Avg Rentals/Hour",
-            value=int(filtered_df['cnt_hour'].mean() if not pd.isna(filtered_df['cnt_hour'].mean()) else 0)
+            label="Avg. Rentals per Hour",
+            value=average_rentals_display,
+            delta=delta_display
         )
     with col3:
         if not filtered_df.empty:
