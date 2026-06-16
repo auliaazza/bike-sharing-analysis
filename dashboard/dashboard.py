@@ -303,7 +303,7 @@ with tab2:
 
     st.subheader("📈 Macro Growth Comparison: 2011 vs. 2012")
 
-    col1, col2 = st.columns([1.2, 2.8], border=True)
+    col1, col2 = st.columns([1.8, 2.8], border=True)
     with col1:
         st.subheader("Total Annual Rental Volume")
         yearly = filtered_df.groupby('year_day')['cnt_day'].sum().reset_index()
@@ -318,7 +318,7 @@ with tab2:
         
         fig.update_layout(
             showlegend=False, 
-            height=300
+            height=420
         )
         fig.update_xaxes(
             type='category',     
