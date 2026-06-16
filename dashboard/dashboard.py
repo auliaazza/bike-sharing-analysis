@@ -7,8 +7,16 @@ import plotly.express as px
 import datetime
 
 # Page Configuration
-st.set_page_config(page_title="Bike Sharing Analytics Dashboard", layout="wide")
-st.title("Bike Sharing Analytics Dashboard")
+st.set_page_config(
+    layout="wide",
+    page_title="Bike Sharing Analytics Dashboard",
+    page_icon=":chart_with_upwards_trend:"
+)
+
+st.write("""
+         # :material/query_stats: Bike Sharing Analytics Dashboard
+         Analyze demand patterns, user behavior, and environmental factors influencing bike rentals.
+         """)
 
 # Data Loader
 @st.cache_data
