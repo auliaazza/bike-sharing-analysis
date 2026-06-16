@@ -20,7 +20,7 @@ def load_data():
 df = load_data()
 
 with st.sidebar:
-    st.markdown("#Filter Controls")
+    st.markdown("# Filter Controls")
     
     # Date Range Filter
     st.markdown("## Date Range")
