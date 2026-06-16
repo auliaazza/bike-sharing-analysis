@@ -106,7 +106,7 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
 with tab1:
     st.subheader("📌 Executive Performance Summary")
 
-    col1, col2, col3, col4 = st.columns(4, vertical_alignment="center", border=True, width="25%")
+    col1, col2, col3, col4 = st.columns(4, vertical_alignment="center", border=True, width="stretch")
     with col1:
         def format_number(num):
             if num >= 1_000_000:
