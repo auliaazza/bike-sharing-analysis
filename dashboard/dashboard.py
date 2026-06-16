@@ -20,7 +20,7 @@ def load_data():
 df = load_data()
 
 with st.sidebar:
-    st.header("Filter Controls")
+    st.subheader("Filter Controls")
     
     # Date Range Filter
     st.markdown("### Date Range")
@@ -49,7 +49,7 @@ with st.sidebar:
     st.markdown("### Season")
     list_season = sorted(df['season_day'].unique())
 
-    selected_season_day = st.segmented_control(
+    selected_season_day = st.segmented_controls(
         label="Select Season",
         options=["All"] + list(list_season),
         default="All",
