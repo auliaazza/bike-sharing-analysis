@@ -11,7 +11,7 @@ font = "sans serif"
 
 [theme.sidebar]
 textColor = "#001A2C"
-backgroundColor = "#fbfefb"
+backgroundColor = "#f8f9fa"
 secondaryBackgroundColor = "#D6EAFF"
 primaryColor = "#84C1FF"
 baseRadius = "sm" 
