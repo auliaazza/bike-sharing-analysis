@@ -320,6 +320,11 @@ with tab2:
             showlegend=False, 
             height=300
         )
+        fig.update_xaxes(
+            type='category',     
+            tickmode='array',  
+            tickvals=['2011', '2012']
+        )
         
         st.plotly_chart(fig, use_container_width=True)
    
