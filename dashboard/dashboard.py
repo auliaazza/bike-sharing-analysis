@@ -143,8 +143,7 @@ with tab1:
             
         st.metric(
             label="Busiest Day", 
-            value=str(busiest_day), 
-            delta=f"{busiest_day_value:,} rides" if busiest_day_value > 0 else None
+            value=str(busiest_day)
         )
     with col4:
         if not filtered_df.empty:
@@ -158,8 +157,7 @@ with tab1:
 
         st.metric(
             label="Peak Hour",
-            value=hour_display,
-            delta=f"{peak_hour_value:,} total rides" if peak_hour_value > 0 else None
+            value=hour_display
         )
 
     col1, col2, col3 = st.columns([2.5, 1.2, 1.2], border=True)
