@@ -123,47 +123,43 @@ with tab1:
             elif num >= 1_000:
                 return f"{num/1_000:.1f}".rstrip("0").rstrip(".") + "K"
             return str(num)
-
-            total_rentals = filtered_df['cnt_day'].sum() if not filtered_df.empty else 0
-            st.metric(
-                label="Total Rentals",
-                value=format_number(total_rentals)
-            )
-
-    with col2:
-        if not filtered_df.empty:
-            raw_avg = filtered_df['cnt_hour'].mean()
-            average_rentals_display = f"{raw_avg:.1f}" if not pd.isna(raw_avg) else "0.0"
-        else:
-            average_rentals_display = "No Data"
-
+        
         st.metric(
-            label="Avg. Rentals per Hour",
-            value=average_rentals_display
+            label="Total Rentals",
+            value=format_number(filtered_df['cnt_day'].sum())
         )
-
+    with col2:
+        st.metric(
+            label="Avg Rentals/Hour",
+            value=int(filtered_df['cnt_hour'].mean() if not pd.isna(filtered_df['cnt_hour'].mean()) else 0)
+        )
     with col3:
-        if not filtered_df.empty and len(filtered_df.groupby('weekday_day')) > 0:
+        if not filtered_df.empty:
             busiest_day = filtered_df.groupby('weekday_day')['cnt_day'].sum().idxmax()
-            busiest_day_display = str(busiest_day)
+            busiest_day_value = filtered_df.groupby('weekday_day')['cnt_day'].sum().max()
         else:
-            busiest_day_display = "No Data"
-
+            busiest_day = "No Data"
+            busiest_day_value = 0
+            
         st.metric(
             label="Busiest Day", 
-            value=busiest_day_display
+            value=str(busiest_day), 
+            delta=f"{busiest_day_value:,} rides" if busiest_day_value > 0 else None
         )
-
     with col4:
-        if not filtered_df.empty and len(filtered_df.groupby('hour')) > 0:
+        if not filtered_df.empty:
             peak_hour = filtered_df.groupby('hour')['cnt_hour'].mean().idxmax()
-            hour_display = f"{int(peak_hour):02d}:00"
+            peak_hour_value = filtered_df.groupby('hour')['cnt_hour'].sum().max()
         else:
-            hour_display = "No Data"
+            peak_hour = "No Data"
+            peak_hour_value = 0
+
+        hour_display = f"{int(peak_hour):02d}:00" if peak_hour != "No Data" else "No Data"
 
         st.metric(
             label="Peak Hour",
-            value=hour_display            
+            value=hour_display,
+            delta=f"{peak_hour_value:,} total rides" if peak_hour_value > 0 else None
         )
 
     col1, col2, col3 = st.columns([2.5, 1.2, 1.2], border=True)
